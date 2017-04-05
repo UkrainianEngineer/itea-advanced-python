@@ -11,13 +11,17 @@
 # 3) `check_perms` function decorated by decorator.
 #     returns `Allowed access` if validation was successful.
 
+
+class PermissionException(Exception):
+    pass
+
 def get_user():
-    return 'pivanchy'
+    return 'pivanch'
 
 def wrapper(fn):
     def wrapped(*args, **kwargs):
         if get_user() != 'pivanchy':
-            raise Exception("Permission denied.")
+            raise PermissionException("Permission denied.")
         return fn(*args, **kwargs)
     return wrapped
 
