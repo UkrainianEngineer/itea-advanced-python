@@ -179,7 +179,7 @@ def recognize_file_type(filename):
         try:
             name, extension = filename.split('.')
         except ValueError:
-            print 'Too many dots in filename.'
+            print 'Too many dots in file "%s".' % name
             # Get last extension of file as an original extension.
             extension = filename.split('.')[-1]
     return extension.lower()
