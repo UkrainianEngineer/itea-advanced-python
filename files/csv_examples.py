@@ -13,9 +13,9 @@ def write_csv(filename, data):
 def read_csv(filename):
     with open(filename, "rb") as csv_file:
         reader = csv.reader(csv_file, delimiter=",")
-        print "Data from CSV file:"
+        print("Data from CSV file:")
         for element in reader:
-            print element
+            print(element)
 
 
 filename = '/tmp/temporary.csv'

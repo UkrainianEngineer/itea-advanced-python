@@ -27,6 +27,6 @@ def wrapper(fn):
 
 @wrapper
 def check_perms():
-    print "Allowed access"
+    print("Allowed access")
 
 check_perms()

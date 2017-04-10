@@ -22,38 +22,38 @@ data = [
 # 1. Print name of the oldest one.
 
 oldest = max(data, key=lambda x:x.get('age'))
-print '=' * 60
-print 'Name of the oldest is "%(name)s", age "%(age)d"' % oldest
+print('=' * 60)
+print('Name of the oldest is "%(name)s", age "%(age)d"' % oldest)
 
 # 2. Print name of the youngest one.
 
-print '=' * 60
+print('=' * 60)
 youngest = min(data, key=lambda x:x.get('age'))
-print 'Name of the youngest is "%(name)s", age "%(age)d"' % youngest
+print('Name of the youngest is "%(name)s", age "%(age)d"' % youngest)
 
 # 3. Print list of guys in range of 19-46 years old.
 
 in_range = [el for el in data if 19 < el.get('age') < 46]
-print '=' * 60
-print "List of guys in range of 19-46 years old: "
+print('=' * 60)
+print("List of guys in range of 19-46 years old: ")
 for guy in in_range:
-    print '"%(name)s" is %(age)d years old.' % guy
+    print('"%(name)s" is %(age)d years old.' % guy)
 
 # 4. Print sum of ages of all members.
 #    Result should be a sum of: 20 + 45 + 55 + 17.
 
-print '=' * 60
+print('=' * 60)
 sum_of_ages = sum(element.get('age') for element in data)
-print "Sum of ages: %d" % sum_of_ages
+print("Sum of ages: %d" % sum_of_ages)
 
 # 5. Try to use filter, map, redure functions for 3rd task.
 
 candidates = map(lambda x: x if 19 < x.get('age') < 46 else None, data)
 guys = filter(None, candidates)
-print '=' * 60
-print "Guys in range 19-46:"
+print('=' * 60)
+print("Guys in range 19-46:")
 for guy in guys:
-    print '"%(name)s" is "%(age)d" years old.' % guy
+    print('"%(name)s" is "%(age)d" years old.' % guy)
 
 # Additional tasks:
 
@@ -74,10 +74,10 @@ counter = 0
 def my_calls_counter():
     global counter
     counter += 1
-    print counter
+    print(counter)
 
-print '=' * 60
-print "Funtion calls:"
+print('=' * 60)
+print("Funtion calls:")
 my_calls_counter()
 my_calls_counter()
 
@@ -91,15 +91,15 @@ def calls_counter(fn):
     counter = 0
     def wrapper():
         counter += 1
-        print counter
+        print(counter)
     return wrapper
 
 def my_calls_wrapper():
     pass
 
 my_calls_wrapper = calls_counter(my_calls_wrapper)
-print '=' * 60
-print "Funtion calls:"
+print('=' * 60)
+print("Funtion calls:")
 my_calls_counter()
 my_calls_counter()
 
@@ -164,7 +164,7 @@ def get_handler(extension):
     try:
         return mapped_objects[extension]
     except KeyError:
-        print 'Unexpected extension "{}" found.'.format(extension)
+        print('Unexpected extension "{}" found.'.format(extension))
 
 def recognize_file_type(filename):
     """Return extension of file.
@@ -179,7 +179,7 @@ def recognize_file_type(filename):
         try:
             name, extension = filename.split('.')
         except ValueError:
-            print 'Too many dots in file "%s".' % name
+            print('Too many dots in file "%s".' % name)
             # Get last extension of file as an original extension.
             extension = filename.split('.')[-1]
     return extension.lower()
@@ -190,12 +190,12 @@ def run_executors(list_of_files):
         handler = get_handler(extension)
         if handler:
             size_of_file = handler()
-            print 'Size of "%s" file is "%s" bytes' % (f, size_of_file)
+            print('Size of "%s" file is "%s" bytes' % (f, size_of_file))
         else:
-            print str('Can\'t calculate size for file with unknown'
-                  ' extension "%s".' % extension)
+            print(str('Can\'t calculate size for file with unknown'
+                  ' extension "%s".' % extension))
 
-print '=' * 60
+print('=' * 60)
 # Make sure there is no empty strings in list.
 list_of_files = filter(None, list_of_files)
 run_executors(list_of_files)
