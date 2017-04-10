@@ -1,19 +1,19 @@
 """This file describes simple tasks to be done at home by each student."""
 
-data = [
-  {
-    'name': 'Bob', 'age':20,
-  },
-  {
-    'name': 'Martin', 'age': 45,
-  },
-  {
-    'name': 'Steven', 'age': 55,
-  },
-  {
-    'name': 'Kate', 'age': 17,
-  },
-]
+#  data = [
+#    {
+#      'name': 'Bob', 'age':20,
+#    },
+#    {
+#      'name': 'Martin', 'age': 45,
+#    },
+#    {
+#      'name': 'Steven', 'age': 55,
+#    },
+#    {
+#      'name': 'Kate', 'age': 17,
+#    },
+#  ]
 
 # 1. Print name of the oldest one.
 # 2. Print name of the youngest one.
