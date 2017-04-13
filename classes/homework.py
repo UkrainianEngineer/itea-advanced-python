@@ -29,5 +29,11 @@
 #     - Teacher class should be associated with `pickle` type somehow
 #       (via specific field or specific implementation for data serialization).
 #     - Make it easy extensible for a new class with a new data type.
-
+# -------------------------------------------
+class Humans(object):
+    def __init__(self, name, surname, age, gender):
+        self.name = name
+        self.surname = surname
+        self.age = age
+        self.gender = gender
 
