@@ -1,3 +1,7 @@
+import json
+import random
+import string
+
 class Humans(object):
     def __init__(self, name, surname, age, gender):
         self.name = name
@@ -55,11 +59,12 @@ print ('the teacher %s is from ' +
 
 print('--' * 25)
 
-import random
-
-def random_data():  # return random: name, surname, age, gender
+def random_data():
+    '''
+    this function return dictionary of random data for human:
+    name, surname, age, gender
+    '''
     data = {}
-    import string
     list_upper_case = [i for i in string.uppercase]
     list_lower_case = [i for i in string.lowercase]
     apper_leter = random.choice(list_upper_case)
@@ -79,7 +84,6 @@ with open('students.json', 'w') as my_file:
     while count < 100:  # quantity of student
         data_base_students.append(random_data())
         count += 1
-    import json
     my_file.write(json.dumps(data_base_students))
 
 with open('students.json', 'r') as my_file:
@@ -89,6 +93,10 @@ with open('students.json', 'r') as my_file:
 marks = [random.randint(0, 10) for mark in range(10)]  # random marks
 
 def stud_info(data_stud):  # data_stud == data_base_students[x]
+    '''
+    this function recives random data for student
+    and returns information about him
+    '''
     student = Students(marks,
                        data_stud['name'],
                        data_stud['surname'],
