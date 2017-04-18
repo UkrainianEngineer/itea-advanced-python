@@ -78,7 +78,7 @@ def random_data():
     return data
 # print(random_data())
 
-with open('students.json', 'w') as my_file:
+with open('students.json', 'w') as my_file: # create file with random data for 100 student
     data_base_students = []
     count = 0
     while count < 100:  # quantity of student
@@ -87,7 +87,6 @@ with open('students.json', 'w') as my_file:
     my_file.write(json.dumps(data_base_students))
 
 with open('students.json', 'r') as my_file:
-    import json
     data_base_students = json.loads(my_file.read())
 
 marks = [random.randint(0, 10) for mark in range(10)]  # random marks
