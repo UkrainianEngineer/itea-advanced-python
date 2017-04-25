@@ -20,10 +20,10 @@ def get_deserialized_data(serialized_data, data_format='pickle'):
     return json.loads(serialized_data)
 
 serialized_data = get_serialized_data(data)
-print "Pickle: Serialized data: %s" % serialized_data
+print("Pickle: Serialized data: %s" % serialized_data)
 
 deserialized_data = get_deserialized_data(serialized_data)
-print "Pickle: Deserialized data: %s" % deserialized_data
+print("Pickle: Deserialized data: %s" % deserialized_data)
 
 
 # Working with file
@@ -44,16 +44,16 @@ def use_files(filename, data_format="pickle"):
         if data_format == "pickle":
             deserialized = pickle.load(fout)
         deserialized = json.load(fout)
-        print "Read from file: %s" % deserialized
+        print("Read from file: %s" % deserialized)
 
 
 # JSON
 
 serialized_data = get_serialized_data(data, data_format='json')
-print "JSON: Serialized data: %s" % serialized_data
+print("JSON: Serialized data: %s" % serialized_data)
 
 deserialized_data = get_deserialized_data(serialized_data, data_format='json')
-print "JSON: Deserialized data: %s" % deserialized_data
+print("JSON: Deserialized data: %s" % deserialized_data)
 
 #use_files(filename, data_format="pickle")
 #use_files(filename, data_format="json")
