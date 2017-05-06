@@ -24,7 +24,7 @@ class Person:
         self.name = name
         self.surname = surname
         self.number = number
-        #add behaviours as attrubutes insted of inheritance
+        # Add behaviours as attributes instead of inheritance
         self.learner = learner
         self.teacher = teacher
 
