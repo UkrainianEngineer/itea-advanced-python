@@ -15,8 +15,10 @@
 class PermissionException(Exception):
     pass
 
+
 def get_user():
     return 'pivanch'
+
 
 def wrapper(fn):
     def wrapped(*args, **kwargs):
@@ -24,6 +26,7 @@ def wrapper(fn):
             raise PermissionException("Permission denied.")
         return fn(*args, **kwargs)
     return wrapped
+
 
 @wrapper
 def check_perms():

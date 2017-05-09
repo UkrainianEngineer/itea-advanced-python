@@ -9,6 +9,7 @@ data = [{'name': 'Pavlo', 'age': 27, 'gender': 'male'},
         {'age': 60}, {'age': 10}, {'age': 20},
         {'name': 'Roman', 'gender': 'male'}]
 
+
 def smart_ordering(data_dict, filter_by, order_by='ASC', limit=100):
     '''
     Sorting data by different conditions.
@@ -22,9 +23,12 @@ def smart_ordering(data_dict, filter_by, order_by='ASC', limit=100):
         list: Sorted list of dictionaries with applied filters.
     '''
     if order_by == 'DESC':
-        sorted_data = sorted(data_dict, key=lambda note: note.get(filter_by, 'z'), reverse=True)
+        sorted_data = sorted(data_dict,
+                             key=lambda note: note.get(filter_by, 'z'),
+                             reverse=True)
     else:
-        sorted_data = sorted(data_dict, key=lambda note: note.get(filter_by, 'z'))
+        sorted_data = sorted(data_dict,
+                             key=lambda note: note.get(filter_by, 'z'))
 
     for note in sorted_data[:limit]:
         yield note

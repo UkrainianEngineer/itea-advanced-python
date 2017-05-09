@@ -17,7 +17,7 @@ for element in testing_list[1:]:
 print(minimal)
 
 # 2. Find minimal element of list using `built-in` function.
-  
+
 minimal = min(testing_list)
 print(minimal)
 
