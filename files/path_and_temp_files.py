@@ -19,7 +19,6 @@ print(os.path.basename(pwd))
 # Print list of properties and methods.
 print(dir(os.path))
 
-
 # Use temporary file
 with tempfile.NamedTemporaryFile() as fin:
     fin.write('Some text goes here')
