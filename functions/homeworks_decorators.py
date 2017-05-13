@@ -6,7 +6,7 @@
 # Implement `retry` decorator.
 # If some part of code in decorated function fails, try to re-run it again.
 # If decorated function executes successfully, you don't need to re-run it.
-# 
+#
 # 1) add some global variable like `RETRIES = 4`.
 #    Use this variable for your retry decorator.
 #    Failed function should retries up to 4 times.

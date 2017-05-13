@@ -126,10 +126,10 @@ class PostgreSQLApp(BaseFramework):
 
     def connect(self):
         """ If any of credentials is missing, raise an error."""
-        if ("username" not in self.credentials
-                or "password" not in self.credentials):
+        if ("username" not in self.credentials or
+                "password" not in self.credentials):
             raise PostgreSQLConnectionRefusedError("Provide username "
-                                                   "and password")
+                                                   "and password.")
         return super(PostgreSQLApp, self).connect()
 
     def execute(self, command):
@@ -144,8 +144,8 @@ class PostgreSQLApp(BaseFramework):
 
 
 sql = SQLiteApp(any_attr="some_value", connection=Connection(db_name="My Db"))
-print(sql.connect()) # connection to MyDb
-print(sql.execute("SELECT")) # executed
+print(sql.connect())  # connection to MyDb
+print(sql.execute("SELECT"))  # executed
 # print(sql.execute("INNER JOIN")) # InvalidCommandError
 print(sql.close())
 # print(sql.execute("Select")) # ConnectionClosedError
@@ -155,11 +155,12 @@ print(mysql.connect())
 print(mysql.execute("UPDATE"))
 print(mysql.close())
 print("*" * 60)
-postgres = PostgreSQLApp(connection=Connection(db_name="My Db"), credentials={"username": '', "password": ''})
-# postgres = PostgreSQLApp(connection=Connection(db_name="My Db"), credentials={"username": ''}) #error
+postgres = PostgreSQLApp(connection=Connection(db_name="My Db"),
+                         credentials={"username": '', "password": ''})
+# postgres = PostgreSQLApp(connection=Connection(db_name="My Db"),
+# credentials={"username": ''}) #error
 # print(postgres.connect()) #PostgreSQLConnectionRefusedError
 # print(mysql.execute("Inner join")) #ConnectionClosedError
 print(postgres.connect())
 print(postgres.execute("SELECT"))
 print(postgres.close())
-
