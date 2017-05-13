@@ -296,3 +296,6 @@ class SmartOrderingTest(unittest.TestCase):
                                        order_by="Desc", limit=0)
         expected_result = []
         self.assertEqual(actual_result, expected_result)
+
+if __name__ == "__main__":
+    unittest.main()

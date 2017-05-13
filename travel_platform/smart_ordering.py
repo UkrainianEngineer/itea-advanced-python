@@ -10,7 +10,7 @@ data = [{'name': 'Pavlo', 'age': 27, 'gender': 'male'},
         {'name': 'Roman', 'gender': 'male'}]
 
 
-def smart_ordering(data_dict, filter_by, order_by='ASC', limit=100):
+def smart_ordering(data_dict, filter_by=None, order_by='ASC', limit=100):
     '''
     Sorting data by different conditions.
     Args:
@@ -22,6 +22,8 @@ def smart_ordering(data_dict, filter_by, order_by='ASC', limit=100):
     Returns:
         list: Sorted list of dictionaries with applied filters.
     '''
+    order_by = order_by.upper()
+    # print filter_by, order_by, limit
     if order_by == 'DESC':
         sorted_data = sorted(data_dict,
                              key=lambda note: (filter_by not in note, note.get(filter_by)),
@@ -29,17 +31,32 @@ def smart_ordering(data_dict, filter_by, order_by='ASC', limit=100):
     else:
         sorted_data = sorted(data_dict,
                              key=lambda note: (filter_by not in note, note.get(filter_by)))
+    if filter_by == None:
+        return sorted(data_dict)
 
     return sorted_data[:limit]
 
-print('Sorted by name:')
+'''
 for i in smart_ordering(data, 'name'):
     print i
+
 print('---'*15)
-print('Sorted by age:')
-for i in smart_ordering(data, 'age', 'DESC'):
+
+for i in smart_ordering(data, 'age', 'Desc', 5):
     print i
+
 print('---'*15)
-print('Sorted by gender:')
-for i in smart_ordering(data, 'gender', 'ASC', 3):
+
+for i in smart_ordering(data, 'gender', 'DESC', 3):
     print i
+
+print('---'*15)
+
+for i in smart_ordering(data):
+    print i
+
+print('***'*15)
+
+for i in smart_ordering(data, 'gender', 'DESC', 0):
+    print i
+'''
