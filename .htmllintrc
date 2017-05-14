@@ -1,6 +1,0 @@
--   repo: https://github.com/Lucas-C/pre-commit-hooks-html
-    sha: v1.2.1
-    hooks:
-    -   id: validate-html
-        args: [--remove-mustaches, "--ignore=Expected \"<!DOCTYPE html>\""]
-        files: ^src/main/html/
