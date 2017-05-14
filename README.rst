@@ -37,3 +37,10 @@ Status of unittests may be verified using:
     `nosetests`
 or
     `nosetests <python_module_with_unittests>`
+
+Installation guideline
+======================
+
+ - Activate your virtual environment: `source <virtual_env>/bin/activate`
+ - Install needed packages: `pip install -r requirements.txt`
+ - Run Django server: `python manage.py runserver 0.0.0.0:8000`
