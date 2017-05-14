@@ -14,4 +14,8 @@ fail () {
 echo "checking unit test suite (py2)"
 do_nosetests nosetests || fail nosetests
 
+# Remove useless *.pyc files.
+repo_root=`git rev-parse --show-toplevel`
+find $repo_root -name \*.pyc -delete
+
 echo "Finished 'python unittests' execution."

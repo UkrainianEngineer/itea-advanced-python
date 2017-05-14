@@ -10,7 +10,7 @@ fail () {
 }
 
 if [ -d "$repo_root/cover" ]; then
-  rm -rf $repo_root/cover
+  rm -rf $repo_root/cover/
 fi
 
 html_files=`find $repo_root -type f -name '*.html'`
