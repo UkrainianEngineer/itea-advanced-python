@@ -37,3 +37,13 @@ Status of unittests may be verified using:
     `nosetests`
 or
     `nosetests <python_module_with_unittests>`
+
+
+Create a new branch from release
+================================
+
+Creation of a new branch from `release` branch is pretty simple:
+    1. git checkout release
+    2. git checkout -b <new_branch_name> release
+
+And that's it.
