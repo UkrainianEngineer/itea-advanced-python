@@ -16,7 +16,7 @@ Synchronize local `release` branch with remote:
     `git pull`
 
 Synchronize `feature` branch with `release` branch:
-    `git checkout <name_of_feature_branch>
+    `git checkout <name_of_feature_branch>`
     `git merge release`
 
 Last 2 commands merges changes from `release` into `<name_of_feature_branch>`.
