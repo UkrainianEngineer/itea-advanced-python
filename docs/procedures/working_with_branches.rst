@@ -27,7 +27,7 @@ Merging conflicts
 If the same parts of files changed in two separate branches, merging conflicts
 will appear during merging these branches.
 
-Conclicts resolution
+Conflicts resolution
 ~~~~~~~~~~~~~~~~~~~~
 
 For resolving merging conflicts author of commit should check changes from both
