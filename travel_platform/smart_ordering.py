@@ -23,7 +23,7 @@ def smart_ordering(data_dict, filter_by=None, order_by='ASC', limit=100):
         list: Sorted list of dictionaries with applied filters.
     '''
     order_by = order_by.upper()
-    # print filter_by, order_by, limit
+
     if order_by == 'DESC':
         sorted_data = sorted(data_dict,
                              key=lambda note: (filter_by not in note,
@@ -37,28 +37,3 @@ def smart_ordering(data_dict, filter_by=None, order_by='ASC', limit=100):
         return sorted(data_dict)
 
     return sorted_data[:limit]
-
-'''
-for i in smart_ordering(data, 'name'):
-    print i
-
-print('---'*15)
-
-for i in smart_ordering(data, 'age', 'Desc', 5):
-    print i
-
-print('---'*15)
-
-for i in smart_ordering(data, 'gender', 'DESC', 3):
-    print i
-
-print('---'*15)
-
-for i in smart_ordering(data):
-    print i
-
-print('***'*15)
-
-for i in smart_ordering(data, 'gender', 'DESC', 0):
-    print i
-'''
