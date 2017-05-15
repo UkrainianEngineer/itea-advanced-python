@@ -24,6 +24,9 @@ def smart_ordering(data_dict, filter_by=None, order_by='ASC', limit=100):
     '''
     order_by = order_by.upper()
 
+    if filter_by is None:
+        return sorted(data_dict)
+
     if order_by == 'DESC':
         sorted_data = sorted(data_dict,
                              key=lambda note: (filter_by not in note,
@@ -33,7 +36,6 @@ def smart_ordering(data_dict, filter_by=None, order_by='ASC', limit=100):
         sorted_data = sorted(data_dict,
                              key=lambda note: (filter_by not in note,
                                                note.get(filter_by)))
-    if filter_by is None:
-        return sorted(data_dict)
+
 
     return sorted_data[:limit]
