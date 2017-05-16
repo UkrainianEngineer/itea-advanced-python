@@ -1,14 +1,3 @@
-data = [{'name': 'Pavlo', 'age': 27, 'gender': 'male'},
-        {'name': 'Kate', 'age': 28, 'gender': 'female'},
-        {'name': 'Duc', 'age': 48, 'gender': 'male'},
-        {'name': 'Duc1', 'age': 48, 'gender': 'male'},
-        {'name': 'Duc', 'age': 45, 'gender': 'male'},
-        {'name': 'Sasha'},
-        {'name': 'Sasha1'},
-        {'name': 'Sasha2'},
-        {'age': 60}, {'age': 10}, {'age': 20},
-        {'name': 'Roman', 'gender': 'male'}]
-
 
 def smart_ordering(data_dict, filter_by=None, order_by='ASC', limit=100):
     '''
