@@ -37,7 +37,7 @@
 #     etc.
 
 # 6*. Implement the 6th task without global variables.
-# 
+#
 #    NOTE: you may get `2` more bonues points if you finish this task
 #          till the next class.
 
@@ -53,7 +53,7 @@
 #    For each type of files: TXT, ZIP, JPG, TTF, INI
 #    You should create custom handler (function) which returns
 #    random size of this file.
-#    
+#
 #    You may use `random.randint`  from `random` module for generation
 #    random size.
 #    Example:
@@ -62,7 +62,7 @@
 #        jpg_handler(filename) # returns random number in range(800, 1000)
 #
 #    Firstly, you must create a function to recognize type of file.
-#    Example: 
+#    Example:
 #        recognize_file_type('reports.txt') # returns: txt
 #        recognize_file_type('logo.ttf') # returnf ttf
 #
