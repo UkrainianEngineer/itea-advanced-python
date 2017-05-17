@@ -21,6 +21,15 @@ def smart_ordering(data_dict, filter_by=None, order_by='ASC', limit=100):
                              key=lambda note: (filter_by not in note,
                                                note.get(filter_by)),
                              reverse=True)
+        ind = 0
+        for note in sorted_data:
+            if note.get(filter_by) is not None:
+                ind = sorted_data.index(note)
+                print ind
+                break
+
+        del sorted_data[:ind]
+
     else:
         sorted_data = sorted(data_dict,
                              key=lambda note: (filter_by not in note,
