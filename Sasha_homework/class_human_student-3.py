@@ -60,13 +60,10 @@ print ('the teacher %s is from ' +
 print('--' * 25)
 
 def random_data():
-    '''
-    this function return dictionary of random data for human:
-    name, surname, age, gender
-    '''
+    ''' This function return dictionary of random data for human: name, surname, age, gender '''
     data = {}
-    list_upper_case = [i for i in string.uppercase]
-    list_lower_case = [i for i in string.lowercase]
+    list_upper_case = list(string.uppercase)
+    list_lower_case = list(string.lowercase)
     apper_leter = random.choice(list_upper_case)
     apper_leter_2 = random.choice(list_upper_case)
     lower_letters = reduce(lambda x, y: x + y, random.sample(list_lower_case, 3))
@@ -76,31 +73,28 @@ def random_data():
     data['age'] = random.randint(16, 60)
     data['gender'] = random.choice(['man', 'women'])
     return data
-# print(random_data())
 
-with open('students.json', 'w') as my_file: # create file with random data for 100 student
-    data_base_students = []
-    count = 0
-    while count < 100:  # quantity of student
-        data_base_students.append(random_data())
-        count += 1
+# create file with random data for 100 student
+with open('students.json', 'w') as my_file:
+    # quantity of student == 100
+    data_base_students = [random_data() for i in range(100)]
     my_file.write(json.dumps(data_base_students))
 
 with open('students.json', 'r') as my_file:
     data_base_students = json.loads(my_file.read())
 
-marks = [random.randint(0, 10) for mark in range(10)]  # random marks
+# random marks
+marks = [random.randint(0, 10) for mark in range(10)]
 
-def stud_info(data_stud):  # data_stud == data_base_students[x]
-    '''
-    this function recives random data for student
-    and returns information about him
+def stud_info(data_student):
+    ''' This function recives random data for 'Student' and returns information about it.
+     data_stud == data_base_students[x]
     '''
     student = Students(marks,
-                       data_stud['name'],
-                       data_stud['surname'],
-                       data_stud['age'],
-                       data_stud['gender'])
+                       data_student['name'],
+                       data_student['surname'],
+                       data_student['age'],
+                       data_student['gender'])
     return student
 
 number_stud = random.randint(0, 99)
