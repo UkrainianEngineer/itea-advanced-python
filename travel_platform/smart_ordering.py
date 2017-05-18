@@ -25,7 +25,6 @@ def smart_ordering(data_dict, filter_by=None, order_by='ASC', limit=100):
         for note in sorted_data:
             if note.get(filter_by) is not None:
                 ind = sorted_data.index(note)
-                print ind
                 break
 
         del sorted_data[:ind]

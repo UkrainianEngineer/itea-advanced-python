@@ -10,6 +10,19 @@ class SmartOrderingTest(unittest.TestCase):
                      {"country": "Spain", "city": "Madrid", "rating": 4.85},
                      {"country": "Ukraine", "city": "Lviv", "rating": 5.0}]
 
+        self.data2 = [{'name': 'Pavlo', 'age': 27, 'gender': 'male'},
+                      {'name': 'Kate', 'age': 28, 'gender': 'female'},
+                      {'name': 'Duc', 'age': 48, 'gender': 'male'},
+                      {'name': 'Duc1', 'age': 48, 'gender': 'male'},
+                      {'name': 'Duc', 'age': 45, 'gender': 'male'},
+                      {'name': 'Sasha'},
+                      {'name': 'Sasha1'},
+                      {'name': 'Sasha2'},
+                      {'age': 60},
+                      {'age': 10},
+                      {'age': 20},
+                      {'name': 'Roman', 'gender': 'male'}]
+
     def test_smart_ordering_sorted(self):
         actual_result = smart_ordering(self.data)
         expected_result = sorted(self.data)
@@ -295,4 +308,15 @@ class SmartOrderingTest(unittest.TestCase):
         actual_result = smart_ordering(self.data, filter_by="rating",
                                        order_by="Desc", limit=0)
         expected_result = []
+        self.assertEqual(actual_result, expected_result)
+
+    def test_smart_ordering_filter_age_desc_limit_5(self):
+        actual_result = smart_ordering(self.data2, filter_by="age",
+                                       order_by="desc", limit=5)
+        expected_result = [{'age': 60},
+                           {'name': 'Duc', 'age': 48, 'gender': 'male'},
+                           {'name': 'Duc1', 'age': 48, 'gender': 'male'},
+                           {'name': 'Duc', 'age': 45, 'gender': 'male'},
+                           {'name': 'Kate', 'age': 28, 'gender': 'female'},
+                           ]
         self.assertEqual(actual_result, expected_result)
