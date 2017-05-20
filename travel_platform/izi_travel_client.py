@@ -167,6 +167,10 @@ class IziTravelClient(object):
         Returns:
             dict: Details about certain museum.
         """
+        # TODO kate: add default values for fields like this:
+        # dict.get("field")
+        # It helps to understand type of this field.
+        # Also it helps to avoid some unexpected behaviour with `None` type.
         url = "{base_url}mtgobjects/{museum}".format(
             base_url=self.api_url, museum=museum_uuid)
         prepared_params = {"includes": "download,city",
@@ -190,7 +194,7 @@ class IziTravelClient(object):
             detail_museum_info["address"] = museum_data[0].get("contacts")
             images = content["images"]
             detail_museum_info["reviews"] = museum_data[0].get("reviews")
-            detail_museum_info["images"] = museum_data[0].get("images")
+            detail_museum_info["images"] = museum_data[0].get("images", [])
             for image in images:
                 im_url = self._prepare_image_url(content_provider_uuid,
                                                  image.get("uuid"))
