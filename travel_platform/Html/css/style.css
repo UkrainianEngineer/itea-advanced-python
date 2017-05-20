@@ -17,7 +17,7 @@ background: linear-gradient(to bottom, rgba(0,139,139,1), rgba(0,0,0,0)); /*Stan
 
 .head-bkg {
 background-color: white;
-background-image: url(http: //socialmediaweek.org/wp-content/blogs.dir/1/files/2015/11/Travel_Photography_Blog_SanFrancisco_201111071.jpg);
+background-image: url(pics/head-bkg.jpg);
 background-repeat: no-repeat;
  background-size: 100%;
 }
