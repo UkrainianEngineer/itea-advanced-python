@@ -1,0 +1,29 @@
+#!/bin/bash
+
+#
+# As suggested in http://stackoverflow.com/questions/3462955/putting-git-hooks-into-repository
+#
+
+if [ -x $0.local ]; then
+ $0.local "$@" || exit $?
+fi
+
+repo_root=`git rev-parse --show-toplevel`
+
+exit_code=0
+
+for file in `ls $repo_root/git_hooks/$(basename $0)`; do
+ git_hooks/$(basename $0)/"$file"
+ current_exit_code=$?
+ if [ "$current_exit_code" != "0" ]; then
+  exit_code=$current_exit_code
+ fi
+done
+
+if [ "$exit_code" != "0" ]; then
+ COLOR="0;31m"
+ text="Failed to commit. Please correct reported problems and retry."
+ echo -e "\e[0$COLOR$text\e[0m"
+ echo
+fi
+exit $exit_code
