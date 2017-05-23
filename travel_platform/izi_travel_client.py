@@ -1,4 +1,5 @@
 import requests
+from conf import config
 
 
 class BaseExceptionHandler(Exception):
@@ -12,10 +13,10 @@ class IziTravelApiError(BaseExceptionHandler):
 
 class BaseIziTravelApiClient(object):
 
-    API_URL = "https://api.izi.travel"
-    API_VERSION = '1.2.4'
-    MEDIA_URL = 'https://media.izi.travel'
-    LANGUAGES = "uk,en,ru"
+    API_URL = config.get('api.izi.travel', 'API_URL')
+    API_VERSION = config.get('api.izi.travel', 'API_VERSION')
+    MEDIA_URL = config.get('api.izi.travel', 'MEDIA_URL')
+    LANGUAGES = config.get('api.izi.travel', 'LANGUAGES')
 
     def __init__(self, api_key):
         if not api_key:
@@ -52,7 +53,7 @@ class BaseIziTravelApiClient(object):
 
     def _prepare_base_url(self, url):
         data = {"base_url": self.API_URL, "url": url}
-        return"{base_url}/{url}/".format(**data)
+        return "{base_url}/{url}/".format(**data)
 
     def _prepare_audio_url(self, content_provider_uuid, audio_uuid):
         """
@@ -119,7 +120,7 @@ class IziTravelApiClient(BaseIziTravelApiClient):
         city = {}
 
         if response:
-            city_data = response[0]
+            city_data = response.pop(0)
             city.update({
                 "city_uuid": city_data.get("uuid", ""),
                 # Number of tours and museums.
@@ -236,22 +237,23 @@ class IziTravelApiClient(BaseIziTravelApiClient):
         prepared_params = {"includes": "download,city",
                            "except": "publisher,children"}
         params = self._prepare_params(**prepared_params)
-        museum_data = self._make_request(url, **params)
+        response = self._make_request(url, **params)
         detail_museum_info = {}
 
-        if museum_data:
+        if response:
 
-            content_provider = museum_data[0].get("content_provider", {})
+            museum_data = response.pop(0)
+            content_provider = museum_data.get("content_provider", {})
             content_provider_uuid = content_provider.get("uuid", "")
-            content = museum_data[0].get("content", [])[0]
+            content = museum_data.get("content", [])[0]
             audio_uuid = content.get("audio", [])[0].get("uuid", "")
             detail_museum_info.update({
                 "name": content_provider.get("name", ""),
                 "audio": self._prepare_audio_url(content_provider_uuid,
                                                  audio_uuid),
                 "description": content.get("desc", ""),
-                "address": museum_data[0].get("contacts", {}),
-                "reviews": museum_data[0].get("reviews", {}),
+                "address": museum_data.get("contacts", {}),
+                "reviews": museum_data.get("reviews", {}),
                 "images": []
 
             })
@@ -286,7 +288,7 @@ class IziTravelApiClient(BaseIziTravelApiClient):
 
         if response:
 
-            tour_data = response[0].get("content", [])[0]
+            tour_data = response.pop(0).get("content", []).pop(0)
             for child in tour_data.get("children", []):
 
                 if child.get("type") == "tourist_attraction":
@@ -333,8 +335,6 @@ class IziTravelApiClient(BaseIziTravelApiClient):
         return response
 
 
-# config = ConfigParser.ConfigParser()
-# config.read('configurations.cfg')
 # API_KEY = config.get('api.izi.travel', 'API_KEY')
 # client = IziTravelApiClient(api_key=API_KEY)
 # print (client.find_city_by_name("Lviv"))

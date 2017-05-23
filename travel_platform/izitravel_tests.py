@@ -1,18 +1,13 @@
 # coding=utf-8
-import ConfigParser
-import os
 import requests
 import unittest
 
-
-from izi_travel_client import IziTravelApiClient
-from izi_travel_client import IziTravelApiError
+from conf import config
+from izi_travel_client import IziTravelApiClient, IziTravelApiError
 
 
 class IziTravelTest(unittest.TestCase):
     def setUp(self):
-        config = ConfigParser.ConfigParser()
-        config.read("{}/{}".format(os.getcwd(), 'configurations.cfg'))
         self.client = IziTravelApiClient(api_key=config.get(
             'api.izi.travel', 'API_KEY'))
         self.city = "Lviv"
