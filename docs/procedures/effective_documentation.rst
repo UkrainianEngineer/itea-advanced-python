@@ -19,9 +19,9 @@ Documentation of processes and procedures
 
 Sometimes in make sense to document some processes and procedures to make
 the processes and procedures clear for all team members.
-As a recommended format for this type of documentation is *RST*.
+As a recommended format for this type of documentation is **RST**.
 
-Best practices of writing *RST* documentation may be found here:
+Best practices of writing **RST** documentation may be found here:
 
 http://sphinx-ru.readthedocs.io/ru/latest/rst-markup.html
 
