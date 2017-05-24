@@ -310,7 +310,7 @@ class SmartOrderingTest(unittest.TestCase):
         expected_result = []
         self.assertEqual(actual_result, expected_result)
 
-    def test_smart_ordering_filter_age_desc_limit(self):
+    def test_smart_ordering_filter_age_desc_not_existing_key(self):
         actual_result = smart_ordering(self.data2, filter_by="age",
                                        order_by="desc", limit=5)
         expected_result = [{'age': 60},
