@@ -1,4 +1,5 @@
 import requests
+
 from conf import config
 
 
@@ -12,7 +13,6 @@ class IziTravelApiError(BaseExceptionHandler):
 
 
 class BaseIziTravelApiClient(object):
-
     API_URL = config.get('api.izi.travel', 'API_URL')
     API_VERSION = config.get('api.izi.travel', 'API_VERSION')
     MEDIA_URL = config.get('api.izi.travel', 'MEDIA_URL')
@@ -102,25 +102,55 @@ class IziTravelApiClient(BaseIziTravelApiClient):
         Returns:
             str: City uuid.
         """
-        return self.find_city_by_name(city).get('city_uuid')
+        return self.get_city_by_name(city).get('city_uuid')
 
-    def find_city_by_name(self, query):
+    def search_city_by_name(self, query):
         """
-        Request for city information.
+        Search for cities.
+        Query example: "Ams".
+        Response example:
+        [
+        {..., u'title':u'Amstelveen', u'map':{ u'bounds': ... },
+            u'hash':..., u'uuid': u'..', u'language':u'en',
+            u'children_count':1, u'location': { u'latitude':..,
+            u'country_uuid':.., u'altitude':..,
+            u'country_code':u'nl', u'longitude':..}, u'type':u'city'},
+        {..., u'title':u'Amsterdam', u'map':{ u'bounds': ... },
+            u'hash':..., u'uuid':u'..', u'language':u'en',
+            u'children_count':1, u'location':{ u'latitude':..,
+            u'country_uuid':.., u'altitude':.., u'country_code':u'nl',
+            u'longitude':..}, u'type':u'city'},
+        {..., u'title':u'Ouderkerk aan de Amstel', u'map':{ u'bounds': ... },
+            u'hash':..., u'uuid':u'..', u'language':u'en',
+            u'children_count':1, u'location':{ u'latitude':..,
+            u'country_uuid':.., u'altitude':..,
+            u'country_code':u'nl', u'longitude':..}, u'type':u'city'}
+      ]
         Args:
             query (str): City name.
         Returns:
-            dict: City data.
+            list: Suggested cities.
         """
-
         url = self._prepare_base_url(self.SEARCH_ENDPOINT)
         prepared_params = {"type": "city", "query": query}
         params = self._prepare_params(**prepared_params)
         response = self._make_request(url, **params)
+        return response
+
+    def get_city_by_name(self, city):
+        """
+        Get certain city by exact name.
+        Args:
+            city (str): City name.
+        Returns:
+            dict: City data.
+        """
+        cities = self.search_city_by_name(city)
         city = {}
 
-        if response:
-            city_data = response.pop(0)
+        if cities:
+
+            city_data = cities.pop()
             city.update({
                 "city_uuid": city_data.get("uuid", ""),
                 # Number of tours and museums.
@@ -130,7 +160,6 @@ class IziTravelApiClient(BaseIziTravelApiClient):
                 # Coordinates, country code and uuid.
                 "location": city_data.get("location", {})
             })
-
             return city
         return city
 
@@ -227,6 +256,26 @@ class IziTravelApiClient(BaseIziTravelApiClient):
     def get_museum_detail_with_audio(self, museum_uuid):
         """
         Get details about museum with audio, reviews, description.
+        Example response:
+        [
+        {u'status': u..', u'map': {...}, u'hash': u'...', u'uuid': '.',
+            u'city': {u'status': u'published', u'map': {..},
+            u'hash': u'...', u'uuid': u'...', u'language': u'uk',
+            u'title': u'Title', u'summary': u'', u'languages': [u'ru',
+            u'uk'], ..., u'location': {}, u'type': u'city'},
+            u'content_provider': {...}, u'schedule': {u'wed':
+            [u'10:00', u'16:30'], u'sun': [u'10:00', u'16:30']...},
+            u'contacts': {u'phone_number': u'...', u'website': ..,
+            u'address': u'..', u'city': u'..', u'country': u'ua'},
+            u'languages': [u'ru', u'uk'],
+            u'reviews': {u'rating_average': 10, u'reviews_count': 0,
+            u'ratings_count': 1},
+            u'location': {...}, u'content': [{u'language': u'uk',
+            u'title': u'..', u'summary': u'', u'download': {u'map-mbtiles':
+            {u'url': u'..', u'size': .., u'updated_at': u'..',
+            u'md5': u'..'}}, u'images': [{..}], u'audio': [{...}],
+             u'desc': u'...'}], u'type': u'museum', u'size': 12870139}
+            ]
         Args:
             museum_uuid (str): Museum uuid.
         Returns:
@@ -241,12 +290,12 @@ class IziTravelApiClient(BaseIziTravelApiClient):
         detail_museum_info = {}
 
         if response:
-
-            museum_data = response.pop(0)
+            museum_data = response.pop()
             content_provider = museum_data.get("content_provider", {})
             content_provider_uuid = content_provider.get("uuid", "")
-            content = museum_data.get("content", [])[0]
-            audio_uuid = content.get("audio", [])[0].get("uuid", "")
+            content = museum_data.get("content", []).pop()
+            audio = content.get("audio", [])
+            audio_uuid = audio[0].get("uuid", "") if audio else ""
             detail_museum_info.update({
                 "name": content_provider.get("name", ""),
                 "audio": self._prepare_audio_url(content_provider_uuid,
@@ -269,6 +318,17 @@ class IziTravelApiClient(BaseIziTravelApiClient):
     def get_tourist_attractions(self, tour_uuid, params=None):
         """
         Get list of tourist attractions included in a tour.
+        Example response:
+        [
+        {"status": .., "category": .., "placement": "..",
+        "uuid": "...", "distance": "..", "country": {...},
+        "languages": [..], "reviews": {..}, "map": {...},
+        "duration": ..., "content": [
+            {"language": "..", "title": "...", "playback": "..."},
+            "images": [{..}, {..}], "children": [
+            {...}, {...}, {...}]
+            ]
+        ]
         Args:
             tour_uuid (str): Tour uuid.
             params (dict): Any additional url parameters.
@@ -279,7 +339,6 @@ class IziTravelApiClient(BaseIziTravelApiClient):
             tour_uuid=tour_uuid))
 
         if params is None:
-
             prepared_params = {"includes": "all,city,country",
                                "except": "translations,publisher,download"}
             params = self._prepare_params(**prepared_params)
@@ -288,7 +347,7 @@ class IziTravelApiClient(BaseIziTravelApiClient):
 
         if response:
 
-            tour_data = response.pop(0).get("content", []).pop(0)
+            tour_data = response.pop().get("content", []).pop()
             for child in tour_data.get("children", []):
 
                 if child.get("type") == "tourist_attraction":
@@ -318,7 +377,6 @@ class IziTravelApiClient(BaseIziTravelApiClient):
         response = self._make_request(url, **params)
 
         if response:
-
             reviews = response.get("metadata", {})
             return reviews
         reviews = {}
@@ -337,17 +395,18 @@ class IziTravelApiClient(BaseIziTravelApiClient):
 
 # API_KEY = config.get('api.izi.travel', 'API_KEY')
 # client = IziTravelApiClient(api_key=API_KEY)
-# print (client.find_city_by_name("Lviv"))
-# print client.get_city_museums("Lviv")[0]["image_url"]
+# print client.get_city_by_name("Lviv")
+# #
+# client.get_city_museums("Lviv")
 # print client.get_city_tours("Lviv")[0]
-# mus_uuid = client.get_city_museums("Lviv")[0]["museum_uuid"]
+# mus_uuid = client.get_city_museums("Amsterdam")[1]["museum_uuid"]
 # print (mus_uuid)
-# print client.get_museum_detail_with_audio(mus_uuid)
+# print client.get_museum_detail_with_audio("mus_uuid")["audio"]
 # for key, value in client.get_museum_detail_with_audio(mus_uuid).items():
 #     print(key, value)
-# tour_id = client.get_city_tours("Lviv")[0]["uuid"]
+# tour_id = client.get_city_tours("Amsterdam")[0]["uuid"]
 # print tour_id
-# print client.get_tourist_attractions(tour_id)
+# print client.get_tourist_attractions(tour_id)[0]["images"]
 # print client.get_object_reviews_and_rating(tour_id)
 # print client.get_featured_content()[0]
 # print client.get_cities_with_content_on_requested_languages("uk")

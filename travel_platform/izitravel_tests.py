@@ -12,15 +12,15 @@ class IziTravelTest(unittest.TestCase):
             'api.izi.travel', 'API_KEY'))
         self.city = "Lviv"
 
-    def test_find_city_by_name_returns_city(self):
-        result = self.client.find_city_by_name(self.city)
+    def test_get_city_by_name_returns_city(self):
+        result = self.client.get_city_by_name(self.city)
         keys = ["title", "location", "map", "children_count", "city_uuid"]
         for key in keys:
             self.assertIn(key, result)
         self.assertEqual(len(result.get("city_uuid")), 36)
 
-    def test_find_unexisting_city_returns_empty_dict(self):
-        result = self.client.find_city_by_name('Unknown city')
+    def test_get_unexisting_city_returns_empty_dict(self):
+        result = self.client.get_city_by_name('Unknown city')
         self.assertEqual(result, {})
 
     def test_get_city_museums_returns_museums(self):
