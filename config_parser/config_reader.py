@@ -14,7 +14,7 @@ def get_setting(cfg_file, section,  parameter):
         section (str) - name of section of parameter
         parameter (str) - name of parameter of value has to be received
     Returns:
-        string: The value of requested parameter in requested
+        str: The value of requested parameter in requested
         section.
 
     """
