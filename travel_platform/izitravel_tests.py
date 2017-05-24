@@ -15,8 +15,7 @@ class IziTravelTest(unittest.TestCase):
     def test_get_city_by_name_returns_city(self):
         result = self.client.get_city_by_name(self.city)
         keys = ["title", "location", "map", "children_count", "city_uuid"]
-        for key in keys:
-            self.assertIn(key, result)
+        self.assertTrue(all([key in result for key in keys]))
         self.assertEqual(len(result.get("city_uuid")), 36)
 
     def test_get_unexisting_city_returns_empty_dict(self):
@@ -53,8 +52,7 @@ class IziTravelTest(unittest.TestCase):
         museum_uuid = "cd8f9805-0efc-4360-92b1-d21bba446542"
         result = self.client.get_museum_detail_with_audio(museum_uuid)
         keys = ["name", "audio", "description", "address", "reviews", "images"]
-        for key in keys:
-            self.assertIn(key, result)
+        self.assertTrue(all([key in result for key in keys]))
         self.assertEquals(requests.get(result["audio"]).status_code,
                           200)
 
@@ -70,8 +68,7 @@ class IziTravelTest(unittest.TestCase):
         self.assertTrue(len(result) > 0)
         keys = ["title", "description", "location", "language", "images",
                 "attr_uuid"]
-        for key in keys:
-            self.assertIn(key, result[0])
+        self.assertTrue(all([key in result[0] for key in keys]))
 
     def test_get_object_review_and_rating(self):
         obj_uuid = 'f1d66e34-c4e9-4139-8d49-865329e2427f'

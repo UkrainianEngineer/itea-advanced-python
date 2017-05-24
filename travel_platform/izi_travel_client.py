@@ -160,7 +160,6 @@ class IziTravelApiClient(BaseIziTravelApiClient):
                 # Coordinates, country code and uuid.
                 "location": city_data.get("location", {})
             })
-            return city
         return city
 
     def get_city_museums(self, city):
@@ -226,7 +225,6 @@ class IziTravelApiClient(BaseIziTravelApiClient):
                 for obj in city_data:
                     if obj.get("type") == "tour":
                         tours.append(obj)
-                return tours
         return tours
 
     def get_cities_with_content_on_requested_languages(self, languages=None):
@@ -250,7 +248,7 @@ class IziTravelApiClient(BaseIziTravelApiClient):
                 city_uuid = city.get("uuid", "")
                 cities.append({"city_title": city_title,
                                "city_uuid": city_uuid})
-            return cities
+
         return cities
 
     def get_museum_detail_with_audio(self, museum_uuid):
@@ -312,7 +310,7 @@ class IziTravelApiClient(BaseIziTravelApiClient):
                 im_url = self._prepare_image_url(content_provider_uuid,
                                                  image.get("uuid", ""))
                 detail_museum_info["images"].append(im_url)
-            return detail_museum_info
+
         return detail_museum_info
 
     def get_tourist_attractions(self, tour_uuid, params=None):
@@ -360,7 +358,6 @@ class IziTravelApiClient(BaseIziTravelApiClient):
                         "attr_uuid": child.get("uuid", "")
                     }
                     tourist_attractions.append(attraction)
-            return tourist_attractions
         return tourist_attractions
 
     def get_object_reviews_and_rating(self, obj_uuid):
@@ -379,8 +376,8 @@ class IziTravelApiClient(BaseIziTravelApiClient):
         if response:
             reviews = response.get("metadata", {})
             return reviews
-        reviews = {}
-        return reviews
+
+        return {}
 
     def get_featured_content(self):
         """
@@ -391,22 +388,3 @@ class IziTravelApiClient(BaseIziTravelApiClient):
         params = self._prepare_params()
         response = self._make_request(url, **params)
         return response
-
-
-# API_KEY = config.get('api.izi.travel', 'API_KEY')
-# client = IziTravelApiClient(api_key=API_KEY)
-# print client.get_city_by_name("Lviv")
-# #
-# client.get_city_museums("Lviv")
-# print client.get_city_tours("Lviv")[0]
-# mus_uuid = client.get_city_museums("Amsterdam")[1]["museum_uuid"]
-# print (mus_uuid)
-# print client.get_museum_detail_with_audio("mus_uuid")["audio"]
-# for key, value in client.get_museum_detail_with_audio(mus_uuid).items():
-#     print(key, value)
-# tour_id = client.get_city_tours("Amsterdam")[0]["uuid"]
-# print tour_id
-# print client.get_tourist_attractions(tour_id)[0]["images"]
-# print client.get_object_reviews_and_rating(tour_id)
-# print client.get_featured_content()[0]
-# print client.get_cities_with_content_on_requested_languages("uk")
