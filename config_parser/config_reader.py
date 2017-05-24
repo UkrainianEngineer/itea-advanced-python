@@ -7,7 +7,7 @@ Uses ConfigParser module for Python.
 import ConfigParser
 
 
-def get_setting(cfg_file, section,  parameter):
+def get_setting(cfg_file, section, parameter):
     """
     Args:
         cfg_file (str) - name or path and name of cfg file for parsing
