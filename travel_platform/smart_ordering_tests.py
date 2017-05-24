@@ -320,3 +320,14 @@ class SmartOrderingTest(unittest.TestCase):
                            {'name': 'Kate', 'age': 28, 'gender': 'female'},
                            ]
         self.assertEqual(actual_result, expected_result)
+
+    def test_smart_ordering_filter_age_asc_not_existing_key(self):
+        actual_result = smart_ordering(self.data2, filter_by="age",
+                                       order_by="asc", limit=5)
+        expected_result = [{'age': 10},
+                           {'age': 20},
+                           {'name': 'Pavlo', 'age': 27, 'gender': 'male'},
+                           {'name': 'Kate', 'age': 28, 'gender': 'female'},
+                           {'name': 'Duc', 'age': 45, 'gender': 'male'}
+                           ]
+        self.assertEqual(actual_result, expected_result)
