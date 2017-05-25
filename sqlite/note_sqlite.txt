@@ -1,0 +1,23 @@
+Создание таблицы:
+
+CREATE TABLE comments (
+    post_id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+    name TEXT NOT NULL,
+    email TEXT NOT NULL,
+    website_url TEXT NULL,
+    comment TEXT NOT NULL );
+
+Для вставки воспользуемся командой INSERT:
+
+INSERT INTO comments ( name, email, website_url, comment )
+VALUES ( 'Sasha Shmigelskii', 'saxin@ukr.net', 'google.com', 'my comment');
+
+Для выборки данных воспользуемся командой SELECT:
+
+SELECT post_id, name, email, website_url, comment FROM comments;
+
+Этот же запрос может выглядеть так
+
+SELECT * FROM comments;
+
+SELECT * FROM comments where 1;

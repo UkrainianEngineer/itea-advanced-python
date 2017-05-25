@@ -1,0 +1,32 @@
+#1 Встановлюємо pip:
+C:\Users\sasha\DjangoProject_travel>python -m pip install -U pip
+
+#2 Встановлюємо віртуальне середовище:
+C:\Users\sasha\DjangoProject_travel>pip install virtualenv
+C:\Users\sasha\DjangoProject_travel>virtualenv --no-site-packages venv
+створиться папка з назвою "venv", в якій буде міститись вірт сер
+
+#3 Встановлюємо Django у папку із віртуальним середовищем:
+C:\Users\sasha\DjangoProject_travel>cd venv
+C:\Users\sasha\DjangoProject_travel\venv>.\Scripts\pip install Django
+
+#4 Ствоорюємо проект:
+C:\Users\sasha\DjangoProject_travel\venv>cd ..
+C:\Users\sasha\DjangoProject_travel>.\venv\Scripts\django-admin startproject travel_platform
+створиться папка з назвою "travel_platform", в якій буде знаходитись наш проект
+
+#5 Створюємо базу даних.
+активувати вірт сер:
+C:\Users\sasha\DjangoProject_travel>.\venv\Scripts\activate
+"(venv) C:\Users\sasha\DjangoProject_travel\venv>"
+перейти у папку з проектом:
+(venv) C:\Users\sasha\DjangoProject_travel>cd travel_platform
+створюємо базу даних за допомогою файла migrate.py:
+(venv) C:\Users\sasha\DjangoProject_travel\travel_platform>python manage.py migrate
+
+#6 Запускаємо сервер:
+(venv) C:\Users\sasha\DjangoProject_travel\travel_platform>python manage.py runserver
+
+Деактивувати вірт сер:
+(venv) C:\Users\sasha\DjangoProject_travel>.\venv\Scripts\deactivate
+"C:\Users\sasha\DjangoProject_travel>"
