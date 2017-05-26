@@ -26,4 +26,3 @@ HTML linter
 As it is not too easy to review HTML code, we use additional hook for
 validation of HTML pages and templates. It helps us to find critical things
 before core review process. It validates all of existing HTML pages in project.
-
