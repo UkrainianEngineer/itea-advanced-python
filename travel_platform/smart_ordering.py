@@ -1,4 +1,3 @@
-
 def smart_ordering(data_dict, filter_by=None, order_by='ASC', limit=100):
     """
     Sorting data by different conditions.
@@ -21,7 +20,8 @@ def smart_ordering(data_dict, filter_by=None, order_by='ASC', limit=100):
                              key=lambda note: (filter_by not in note,
                                                note.get(filter_by)),
                              reverse=True)
-        sorted_data = filter(lambda note: note.get(filter_by), sorted_data)
+        sorted_data = filter(lambda note: note.get(filter_by), sorted_data) + \
+                      filter(lambda note: not note.get(filter_by), sorted_data)
 
     else:
         sorted_data = sorted(data_dict,

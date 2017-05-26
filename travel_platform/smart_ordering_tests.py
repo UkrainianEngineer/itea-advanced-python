@@ -312,22 +312,36 @@ class SmartOrderingTest(unittest.TestCase):
 
     def test_smart_ordering_filter_age_desc_not_existing_key(self):
         actual_result = smart_ordering(self.data2, filter_by="age",
-                                       order_by="desc", limit=5)
+                                       order_by="desc")
         expected_result = [{'age': 60},
-                           {'name': 'Duc', 'age': 48, 'gender': 'male'},
-                           {'name': 'Duc1', 'age': 48, 'gender': 'male'},
-                           {'name': 'Duc', 'age': 45, 'gender': 'male'},
-                           {'name': 'Kate', 'age': 28, 'gender': 'female'},
-                           ]
+                           {'gender': 'male', 'age': 48, 'name': 'Duc'},
+                           {'gender': 'male', 'age': 48, 'name': 'Duc1'},
+                           {'gender': 'male', 'age': 45, 'name': 'Duc'},
+                           {'gender': 'female', 'age': 28, 'name': 'Kate'},
+                           {'gender': 'male', 'age': 27, 'name': 'Pavlo'},
+                           {'age': 20},
+                           {'age': 10},
+                           {'name': 'Sasha'},
+                           {'name': 'Sasha1'},
+                           {'name': 'Sasha2'},
+                           {'gender': 'male', 'name': 'Roman'}]
+
         self.assertEqual(actual_result, expected_result)
 
     def test_smart_ordering_filter_age_asc_not_existing_key(self):
         actual_result = smart_ordering(self.data2, filter_by="age",
-                                       order_by="asc", limit=5)
+                                       order_by="asc")
         expected_result = [{'age': 10},
                            {'age': 20},
-                           {'name': 'Pavlo', 'age': 27, 'gender': 'male'},
-                           {'name': 'Kate', 'age': 28, 'gender': 'female'},
-                           {'name': 'Duc', 'age': 45, 'gender': 'male'}
-                           ]
+                           {'gender': 'male', 'age': 27, 'name': 'Pavlo'},
+                           {'gender': 'female', 'age': 28, 'name': 'Kate'},
+                           {'gender': 'male', 'age': 45, 'name': 'Duc'},
+                           {'gender': 'male', 'age': 48, 'name': 'Duc'},
+                           {'gender': 'male', 'age': 48, 'name': 'Duc1'},
+                           {'age': 60},
+                           {'name': 'Sasha'},
+                           {'name': 'Sasha1'},
+                           {'name': 'Sasha2'},
+                           {'gender': 'male', 'name': 'Roman'}]
+
         self.assertEqual(actual_result, expected_result)
