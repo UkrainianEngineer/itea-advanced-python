@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import sqlite3
 
-conn = sqlite3.connect('test_base2.sqlite')
+conn = sqlite3.connect('test_base.sqlite')
 cur = conn.cursor()
 
 # Функция занесения пользователя в базу
