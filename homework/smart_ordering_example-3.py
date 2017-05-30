@@ -36,4 +36,4 @@ def smart_ordering(data_dict, filter_by=None, order_by='ASC', limit=100):
 
     return sorted_data[:limit]
 
-print smart_ordering(data, filter_by="age", order_by="desc", limit=15)
+print smart_ordering(data, filter_by="age", order_by="asc", limit=15)
