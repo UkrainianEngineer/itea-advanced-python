@@ -28,18 +28,12 @@ def smart_ordering(data_dict, filter_by=None, order_by='ASC', limit=100):
         return sorted(data_dict)
 
     if order_by == 'DESC':
-        sorted_data = sorted(data_dict,
-                             key=lambda note: (filter_by not in note,
-                                               note.get(filter_by)),
+        sorted_data = sorted(data_dict, key=lambda note: note.get(filter_by),
                              reverse=True)
-        sorted_data = filter(lambda note: note.get(filter_by), sorted_data) + \
-                             filter(lambda note: not note.get(filter_by), sorted_data)
 
     else:
-        sorted_data = sorted(data_dict,
-                             key=lambda note: (filter_by not in note,
-                                               note.get(filter_by)))
+        sorted_data = sorted(data_dict, key=lambda note: note.get(filter_by))
 
     return sorted_data[:limit]
 
-print smart_ordering(data, filter_by="age", order_by="desc", limit=15)
+print smart_ordering(data, filter_by="age", order_by="asc", limit=15)
