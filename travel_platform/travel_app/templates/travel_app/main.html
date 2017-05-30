@@ -13,10 +13,8 @@
   </div>
 
   <div class="col-md-4 choose">
-    <a href="https://lviv.itea.ua/">
-      <img class="img-responsive" src="{% static 'travel_app/images/planet.jpg' %}" alt="planet">
+      <div id="map" class="map"></div>
       <span class="text-center">Choose a city</span>
-    </a>
   </div>
 
   <div class="col-md-8">
@@ -123,5 +121,20 @@
     <span class="text-center">Plane</span></a>
   </div>
 </div>
+
+<script>
+  var map = new ol.Map({
+    target: 'map',
+    layers: [
+      new ol.layer.Tile({
+        source: new ol.source.OSM()
+      })
+    ],
+    view: new ol.View({
+      center: ol.proj.fromLonLat([24.03, 49.85]),
+      zoom: 9
+    })
+  });
+</script>
 
 {% endblock %}

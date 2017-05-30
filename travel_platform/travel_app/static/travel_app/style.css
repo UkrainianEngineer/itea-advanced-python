@@ -74,3 +74,8 @@ p {
   margin-top: 12px;
   font-size: 22px;
 }
+
+.map {
+  height: 300px;
+  width: 100%;
+}
