@@ -14,6 +14,7 @@
 
   <div class="col-md-4 choose">
       <div id="map" class="map"></div>
+      <script type="text/javascript" src='{% static "travel_app/js/map.js" %}'></script>
       <span class="text-center">Choose a city</span>
   </div>
 
@@ -54,6 +55,8 @@
     </div>
   </div>
 </div>
+
+<div id="coordinates"></div>
 
 <div class="row">
   <div class="text-center"><h2>How to get there?</h2>
@@ -121,20 +124,5 @@
     <span class="text-center">Plane</span></a>
   </div>
 </div>
-
-<script>
-  var map = new ol.Map({
-    target: 'map',
-    layers: [
-      new ol.layer.Tile({
-        source: new ol.source.OSM()
-      })
-    ],
-    view: new ol.View({
-      center: ol.proj.fromLonLat([24.03, 49.85]),
-      zoom: 9
-    })
-  });
-</script>
 
 {% endblock %}
