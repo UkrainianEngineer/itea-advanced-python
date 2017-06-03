@@ -1,5 +1,4 @@
-.. image:: https://travis-ci.org/pivancy/itea-advanced-python.svg?branch=master
-    :target: https://travis-ci.org/pivancy/itea-advanced-python
+https://travis-ci.org/pivancy/itea-advanced-python.svg?branch=master
 
 What is this repository about
 =============================
