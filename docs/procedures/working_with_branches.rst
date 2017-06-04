@@ -4,6 +4,15 @@ Introduction
 All branches should be up-to-date with **release** branch to have all
 actual changes.
 
+Create new branch from release
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+In the beginning of development of a new feature each developer should create
+a new branch from `release`. It may be done via:
+
+    `git checkout -b <feature_branch_name> release`
+
+After this new branch called `feature_branch_name` will be created.
+
 Feature branch synchronization
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
