@@ -1,6 +1,8 @@
 from skyscanner import Flights
 
-flights_service = Flights('API key')
+api_key = 'ka775911102027919433182126616312'
+
+flights_service = Flights(api_key)
 
 result = flights_service.get_result(
     country='UK',
