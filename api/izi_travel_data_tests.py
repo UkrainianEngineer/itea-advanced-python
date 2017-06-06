@@ -2,8 +2,8 @@
 import requests
 import unittest
 
-from izitravel_data import find_city_tours, find_museums,\
-    find_museum_detail, find_tour_attractions
+from izi_travel_data import (find_city_tours, find_museums,
+                             find_museum_detail, find_tour_attractions)
 
 
 class IziTravelRealDataTest(unittest.TestCase):
