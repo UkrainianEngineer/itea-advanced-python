@@ -1,4 +1,4 @@
-from skyscanner import Flights
+from skyscanner.skyscanner import Flights
 
 api_key = 'ka775911102027919433182126616312'
 
