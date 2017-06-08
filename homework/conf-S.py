@@ -13,7 +13,7 @@ CONF_PATH = os.path.join(os.path.dirname(os.path.abspath(__file__)),
 
 CONF_PATH2 = os.path.abspath('configurations.cfg')
 
-print 'CONF_PATH: ' + type(CONF_PATH)
-print 'CONF_PATH2: ' + type(CONF_PATH2)
+print 'CONF_PATH: ', CONF_PATH
+print 'CONF_PATH2: ', CONF_PATH2
 # config = ConfigParser.ConfigParser()
 # print config.read(CONF_PATH)
