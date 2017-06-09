@@ -3,6 +3,8 @@ from __future__ import unicode_literals
 
 from django.http import Http404
 
+from django.http import JsonResponse
+
 from django.shortcuts import render
 
 from .models import Query
@@ -10,3 +12,14 @@ from .models import Query
 
 def index(request):
     return render(request, 'travel_app/main.html')
+
+
+def coord(request):
+    """
+    View added for checking of interaction of map from landing page with 
+    server.
+    :param request: 
+    :return: 
+    """
+    data = 'Lviv'
+    return JsonResponse(data, safe=False)
