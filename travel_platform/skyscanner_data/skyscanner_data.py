@@ -1,6 +1,9 @@
-from skyscanner.skyscanner import FlightsCache
+import sys
+import os
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
-from travel_platform.conf import config
+from skyscanner.skyscanner import FlightsCache
+from conf import config
 
 
 class SkyscannerApiClient(object):
