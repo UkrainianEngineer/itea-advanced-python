@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+{% load staticfiles %}
+<html lang="en">
+
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Booking system">
+<meta name="keywords" content="Travel,travels,booking,tickets,hotels">
+<title>Travel platform</title>
+<link href="//fonts.googleapis.com/css?family=Acme|Wendy+One" rel="stylesheet">
+<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+      integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+<link rel="stylesheet" href="//openlayers.org/en/v4.1.1/css/ol.css">
+<link rel="stylesheet" href="{% static 'css/style.css' %}">
+<link rel="stylesheet" href="{% static 'travel_app/style.css' %}">
+<script src="//openlayers.org/en/v4.1.1/build/ol.js"></script>
+<script src="{% static 'travel_app/js/js.js' %}"></script>
+
+<body class="container smallscr">
+{% block content %}
+{% endblock %}
+<footer class="row">
+  <div class="col-md-offset-4 col-md-4">
+    <p>Copyright © 2017 ITEA Python Advanced.<br>All rights reserved. :)
+  </div>
+</footer>
+
+

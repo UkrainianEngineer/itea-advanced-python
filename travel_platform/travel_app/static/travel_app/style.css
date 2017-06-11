@@ -66,10 +66,16 @@ p {
 }
 
 .form-control {
-  font-size: 22px;
+  font-size: 24px;
+  padding: 1px 12px;
 }
 
 .btn {
   margin-top: 12px;
   font-size: 22px;
+}
+
+.map {
+  height: 300px;
+  width: 100%;
 }
