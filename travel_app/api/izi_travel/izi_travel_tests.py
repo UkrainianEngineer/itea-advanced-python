@@ -2,14 +2,16 @@
 import requests
 import unittest
 
-from conf import config
+from conf import CONF_PATH
+from config_parser.config_reader import get_setting
 from izi_travel_client import IziTravelApiClient, IziTravelApiError
 
 
 class IziTravelTest(unittest.TestCase):
     def setUp(self):
-        self.client = IziTravelApiClient(api_key=config.get(
-            'api.izi.travel', 'API_KEY'))
+        self.client = IziTravelApiClient(api_key=get_setting(CONF_PATH,
+                                                             'api.izi.travel',
+                                                             'API_KEY'))
         self.city = "Lviv"
 
     def test_get_city_by_name_returns_city(self):
