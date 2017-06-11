@@ -21,5 +21,8 @@ def coord(request):
     :param request: 
     :return: 
     """
-    data = 'Lviv'
-    return JsonResponse(data, safe=False)
+    if 'lon' in request.GET:
+        response = request.GET('lon')
+    else:
+        response = 'not found'
+    return JsonResponse(response, safe=False)
