@@ -7,33 +7,26 @@ from conf import config
 
 
 class SkyscannerApiClient(object):
-    API_URL = config.get('api_skyscanner', 'API_URL')
-    API_VERSION = config.get('api_skyscanner', 'API_VERSION')
-    MEDIA_URL = config.get('api_skyscanner', 'MEDIA_URL')
-    LANGUAGES = config.get('api_skyscanner', 'LANGUAGES')
 
-    def __init__(self, api_key):
-        if not api_key:
-            raise ValueError("API key must be provided")
-        self.api_key = api_key
+    def __init__(self, api_key, market, currency, locale, origin_place,
+                 destination_place, outbound_date, inbound_date):
 
-    def flights_cache_service(self,
-                              market='UK',
-                              currency='GBP',
-                              locale='en-GB',
-                              originplace='SIN-sky',
-                              destinationplace='KUL-sky',
-                              outbounddate='2017-07-15',
-                              inbounddate='2017-07-18'):
+        self.api_key = config.get('api_skyscanner', 'api_key')
+        self.market = config.get('api_skyscanner', 'market')
+        self.currency = config.get('api_skyscanner', 'currency')
+        self.locale = config.get('api_skyscanner', 'locale')
+        self.origin_place = config.get('api_skyscanner', 'origin_place')
+        self.destination_place = config.get('api_skyscanner', 'destination_place')
+        self.outbound_date = config.get('api_skyscanner', 'outbound_date')
+        self.inbound_date = config.get('api_skyscanner', 'inbound_date')
+
+
+    def flights_cache_service(self):
 
         flights_cache_service = FlightsCache(self.api_key)
-        return flights_cache_service.get_cheapest_quotes(market,
-                                                         currency,
-                                                         locale,
-                                                         originplace,
-                                                         destinationplace,
-                                                         outbounddate,
-                                                         inbounddate).parsed
+        return flights_cache_service.get_cheapest_quotes().parsed
 
-response = SkyscannerApiClient(api_key=config.get('api_skyscanner', 'API_KEY'))
+response = SkyscannerApiClient()
+# sys.path.pop()
+
 print response
