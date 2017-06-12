@@ -37,6 +37,7 @@ def cheapest_price_by_route():
         destinationplace='KUL-sky',
         outbounddate='2017-07-15',
         inbounddate='2017-07-16').parsed
+    return result
 
 
 def cheapest_price_by_date():
@@ -48,6 +49,7 @@ def cheapest_price_by_date():
         destinationplace='KUL-sky',
         outbounddate='2017-07-15',
         inbounddate='2017-07-16').parsed
+    return result
 
 
 def grid_prices_by_date():
@@ -59,10 +61,11 @@ def grid_prices_by_date():
         destinationplace='KUL-sky',
         outbounddate='2017-07-15',
         inbounddate='2017-07-16').parsed
+    return result
 
-# print cheapest_quotes()
-# print cheapest_price_by_route()
-# print cheapest_price_by_date()
-# print grid_prices_by_date()
+print cheapest_quotes()
+print cheapest_price_by_route()
+print cheapest_price_by_date()
+print grid_prices_by_date()
 
 sys.path.pop()
