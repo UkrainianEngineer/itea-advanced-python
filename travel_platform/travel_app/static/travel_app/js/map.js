@@ -19,16 +19,15 @@
           new OpenLayers.Marker(map.getLonLatFromPixel(e.xy)),
           icon);
     var lonlat = map.getLonLatFromPixel(e.xy).transform('EPSG:3857', 'EPSG:4326');
-    var coordinates = { 'lat': lonlat.lat.toFixed(6), 'lon': lonlat.lon.toFixed(6)};
 
-/* TODO -- finish with sending ajax*/
     $.ajax({
       dataType: "json",
       type: 'GET',
       url: '/travel_app/coord',
-      data: JSON.stringify(coordinates),
+      data: {"lon": lonlat.lon.toFixed(6), "lat": lonlat.lat.toFixed(6)},
       success: function (response){
-      $("#initial_location").val(response)}
+      $("#initial_location").val(response)
+      },
     })
   });
 });
