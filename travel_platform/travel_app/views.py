@@ -9,8 +9,6 @@ from django.shortcuts import render
 
 from .models import Query
 
-import json
-
 
 def index(request):
     return render(request, 'travel_app/main.html')

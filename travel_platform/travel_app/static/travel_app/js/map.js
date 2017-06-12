@@ -19,12 +19,13 @@
           new OpenLayers.Marker(map.getLonLatFromPixel(e.xy)),
           icon);
     var lonlat = map.getLonLatFromPixel(e.xy).transform('EPSG:3857', 'EPSG:4326');
+    var coordinates = {"lon": lonlat.lon.toFixed(6), "lat": lonlat.lat.toFixed(6)};
 
     $.ajax({
       dataType: "json",
       type: 'GET',
       url: '/travel_app/coord',
-      data: {"lon": lonlat.lon.toFixed(6), "lat": lonlat.lat.toFixed(6)},
+      data: coordinates,
       success: function (response){
       $("#initial_location").val(response)
       },
