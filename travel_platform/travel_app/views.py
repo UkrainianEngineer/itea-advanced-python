@@ -23,10 +23,7 @@ def coord(request):
     """
 
     """TODO: finish with interaction with API"""
-    if 'lon' and 'lat' in request.GET:
-        lon = request.GET.get('lon')
-        lat = request.GET.get('lat')
-        response = lon + " " + lat
-    else:
-        response = 'Venues are not found'
+
+    response = request.GET.get('lon') + " " + request.GET.get('lat')
+
     return JsonResponse(response, safe=False)
