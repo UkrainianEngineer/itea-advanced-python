@@ -21,9 +21,9 @@ def coord(request):
     :param request: 
     :return: 
     """
-    if 'lon' in request.GET:
-        lon = request.GET['lon']
-        lat = request.GET['lat']
+    if 'lon' and 'lat' in request.GET:
+        lon = request.GET.get('lon')
+        lat = request.GET.get('lat')
         response = lon + " " + lat
     else:
         response = 'Venues are not found'
