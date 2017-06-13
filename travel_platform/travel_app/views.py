@@ -21,6 +21,8 @@ def coord(request):
     :param request: 
     :return: 
     """
+
+    """TODO: finish with interaction with API"""
     if 'lon' and 'lat' in request.GET:
         lon = request.GET.get('lon')
         lat = request.GET.get('lat')
