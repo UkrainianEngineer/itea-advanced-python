@@ -16,7 +16,7 @@ fi
 html_files=`find $repo_root -type f -name '*.html'`
 
 for file in $html_files; do
-  html_lint.py $file || fail html_lint.py
+  html_lint.py --printfilename $file || fail html_lint.py
 done
 
 echo "Finished 'html validator' execution."
