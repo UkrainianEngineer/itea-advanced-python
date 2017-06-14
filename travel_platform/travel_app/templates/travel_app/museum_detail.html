@@ -3,16 +3,15 @@
 {% block content %}
   <h2>{{ detail.name }}</h2>
   <audio controls>
-    <source src={{ detail.audio }} type="audio/mpeg">
-    Your browser does not support the audio element.
+    <source src="{{ detail.audio }}" type="audio/mpeg">
+  Your browser does not support the audio element.
   </audio>
 
   <div>
-    {% for image in detail.images %}
-      <img src={{ image }}>
-    {% endfor %}
+  {% for image in detail.images %}
+    <img src="{{ image }}">
+  {% endfor %}
   </div>
-
 
   {% autoescape off %}
     {{ detail.description }}
