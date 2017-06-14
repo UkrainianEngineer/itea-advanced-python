@@ -1,4 +1,4 @@
-{% extends 'travel_app/base.html' %}
+{% extends "travel_app/base.html" %}
 {% load static from staticfiles %}
 {% block content %}
 <header>
@@ -66,7 +66,7 @@
                  Also it will be fine to add some id, class, etc. for this form.
 -->
 
-<form method="GET">
+<form action="{% url "search_city" %}" method="GET">
   <div class="row">
     <div class="col-md-offset-3 col-md-4">
       <h3>
@@ -77,7 +77,7 @@
 
   <div class="row">
     <div class="col-md-offset-3 col-md-4">
-      <h3><input class="form-control text-center" id="desired-location" type="text"
+      <h3><input name="desired_location" class="form-control text-center" id="desired-location" type="text"
                  placeholder="enter desired location"></h3>
     </div>
     <div class="col-md-2">
