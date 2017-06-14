@@ -5,23 +5,13 @@ sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from skyscanner.skyscanner import FlightsCache
 from conf import config
 
-API_SECTION = "api_skyscanner"
-
 api_key = config.get('api_skyscanner', 'api_key')
 flights_cache_service = FlightsCache(api_key)
 
-data = {}
-
-def update_params(data, sections):
-    # Read configs from configuration file.
-    for section in sections:
-        data.update({section: config.get(API_SECTION, section)})
-
-api_params = ["market", "currency", "locale", "originplace",
-              "destinationplace", "outbounddate", "inbounddate"]
-
-# Prepare parameters for using SkyScanner API.
-update_params(data, api_params)
+data = {"market": "UK", "currency": "GBP", "locale": "en-GB",
+        "originplace": "SIN-sky", "destinationplace": "KUL-sky",
+        "outbounddate": "2017-07-15", "inbounddate": "2017-07-18"
+}
 
 
 def cheapest_quotes(params):
