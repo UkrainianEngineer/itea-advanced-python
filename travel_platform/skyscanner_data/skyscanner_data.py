@@ -5,51 +5,47 @@ sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from skyscanner.skyscanner import FlightsCache
 from conf import config
 
+API_SECTION = "api_skyscanner"
+
 api_key = config.get('api_skyscanner', 'api_key')
-market = config.get('api_skyscanner', 'market')
-currency = config.get('api_skyscanner', 'currency')
-locale = config.get('api_skyscanner', 'locale')
-origin_place = config.get('api_skyscanner', 'origin_place')
-destination_place = config.get('api_skyscanner', 'destination_place')
-outbound_date = config.get('api_skyscanner', 'outbound_date')
-inbound_date = config.get('api_skyscanner', 'inbound_date')
 flights_cache_service = FlightsCache(api_key)
 
-#FIXME: why my *args not work?
+data = {}
 
-def cheapest_quotes(*args):
-    result = flights_cache_service.get_cheapest_quotes(args).parsed
+def update_params(data, sections):
+    # Read configs from configuration file.
+    for section in sections:
+        data.update({section: config.get(API_SECTION, section)})
+
+api_params = ["market", "currency", "locale", "originplace",
+              "destinationplace", "outbounddate", "inbounddate"]
+
+# Prepare parameters for using SkyScanner API.
+update_params(data, api_params)
+
+
+def cheapest_quotes(params):
+    result = flights_cache_service.get_cheapest_quotes(**params).parsed
     return result
 
 
-def cheapest_price_by_route(*args):
-    result = flights_cache_service.get_cheapest_price_by_route(args).parsed
+def cheapest_price_by_route(params):
+    result = flights_cache_service.get_cheapest_price_by_route(**params).parsed
     return result
 
 
-def cheapest_price_by_date(*args):
-    result = flights_cache_service.get_cheapest_price_by_date(args).parsed
+def cheapest_price_by_date(params):
+    result = flights_cache_service.get_cheapest_price_by_date(**params).parsed
     return result
 
 
-def grid_prices_by_date(*args):
-    result = flights_cache_service.get_grid_prices_by_date(args).parsed
+def grid_prices_by_date(params):
+    result = flights_cache_service.get_grid_prices_by_date(**params).parsed
     return result
 
-print cheapest_quotes(market, currency, locale, origin_place,
-                      destination_place, outbound_date,
-                      inbound_date)
-
-print cheapest_price_by_route(market, currency, locale, origin_place,
-                      destination_place, outbound_date,
-                      inbound_date)
-
-print cheapest_price_by_date(market, currency, locale, origin_place,
-                      destination_place, outbound_date,
-                      inbound_date)
-
-print grid_prices_by_date(market, currency, locale, origin_place,
-                      destination_place, outbound_date,
-                      inbound_date)
+print cheapest_quotes(data)
+print cheapest_price_by_route(data)
+print cheapest_price_by_date(data)
+print grid_prices_by_date(data)
 
 sys.path.pop()
