@@ -22,7 +22,8 @@ def coord(request):
     :return: 
     """
 
-    """TODO: finish with interaction with API"""
+    """TODO RomanPryima: make function sending coordinates and returning 
+    to the frontend name of location received from map API"""
 
     response = request.GET.get('lon') + " " + request.GET.get('lat')
 
