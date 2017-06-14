@@ -5,6 +5,6 @@ import config_parser
 
 setup(
     name='config_parser',
-    version='1.0.0',
+    version=config_parser.__version__,
     packages=find_packages(),
 )
