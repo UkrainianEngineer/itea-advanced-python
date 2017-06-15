@@ -1,6 +1,5 @@
 {% extends "travel_app/base.html" %}
 {% load static from staticfiles %}
-{{ detail }}
 {% block content %}
 
   {% for attraction in detail %}
@@ -9,7 +8,7 @@
 
     {% for image in attraction.images %}
       <div>
-        <img src="{{ image }}">
+        <img src="{{ image }}" alt="tourist_attraction">
       </div>
     {% endfor %}
 
@@ -22,7 +21,6 @@
       <source src="{{ attraction.audio }}" type="audio/mpeg">
       Your browser does not support the audio element.
     </audio>
-
   {% endfor %}
 
 {% endblock %}
