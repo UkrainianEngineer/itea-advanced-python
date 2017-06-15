@@ -18,8 +18,6 @@ def coord(request):
     """
     View added for checking of interaction of map from landing page with 
     server.
-    :param request: 
-    :return: 
     """
 
     #TODO RomanPryima: make function sending coordinates and returning
