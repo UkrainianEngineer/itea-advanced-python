@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
-from django.core.cache import cache
 from django.shortcuts import render
 from django.views.decorators.cache import cache_page
 
