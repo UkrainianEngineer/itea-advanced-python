@@ -11,7 +11,7 @@
         <div>
           <img src="{{ museum.image_url }}" alt="museum">
         </div>
-        <div class="details_link">
+        <div class="details-link">
           <a href="{% url "museum_detail" id_=museum.museum_uuid %}">Details about museum</a>
         </div>
       {% endfor %}
@@ -27,7 +27,7 @@
           <div>
             <img src="{{ image }}" alt="tour">
           </div>
-          <div class="details_link">
+          <div class="details-link">
             <a href="{% url "tour_detail" id_=tour.tour_uuid %}">Details about tour</a>
           </div>
         {% endfor %}
