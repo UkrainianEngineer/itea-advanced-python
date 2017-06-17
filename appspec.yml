@@ -1,0 +1,9 @@
+os: linux
+
+hooks:
+  ApplicationStop:
+    - location: tools/deployment/application_stop.sh
+  AfterInstall:
+    - location: tools/deployment/application_after_install.sh
+  ApplicationStart:
+    - location: tools/deployment/application_start.sh
