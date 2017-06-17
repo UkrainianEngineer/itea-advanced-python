@@ -47,3 +47,10 @@ Installation guideline
  - Activate your virtual environment: `source <virtual_env>/bin/activate`
  - Install needed packages: `pip install -r requirements.txt`
  - Run Django server: `python manage.py runserver 0.0.0.0:8000`
+
+
+Deployment automatically
+========================
+
+After each commit into `master` branch application automatically deploys
+into AWS EC2 instance.
