@@ -1,0 +1,18 @@
+version: 0.0
+
+os: linux
+
+files:
+  - source: requirements.txt
+    destination: /usr/local/etc/travel_platform/
+  # Temporary disabled.
+  #- source: setup.py
+  #  destination: /usr/local/etc/travel_platform/
+
+hooks:
+  ApplicationStop:
+    - location: tools/deployment/application_stop.sh
+  AfterInstall:
+    - location: tools/deployment/application_after_install.sh
+  ApplicationStart:
+    - location: tools/deployment/application_start.sh
