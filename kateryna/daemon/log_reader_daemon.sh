@@ -10,9 +10,8 @@ start() {
     return 1
   fi
   echo 'Starting service…' >&2
-  echo $$  > "$PIDFILE"
-  local CMD="$SCRIPT &> \"$LOGFILE\" & echo \$!"
-  su -c "$CMD" $RUNAS > "$PIDFILE"
+  local CMD="$SCRIPT &> \"$LOGFILE\" && echo \$! > $PIDFILE"
+  su -c "$CMD" $RUNAS > "$LOGFILE"
   echo 'Service started' >&2
 }
 
