@@ -55,4 +55,7 @@ Deployment automatically
 After each commit into `master` branch application automatically deploys
 into AWS EC2 instance.
 
-:TODO: pivanchy: add link to auto deployment environment. deployed?
+Auto-deployment may be done using link:
+http://crypt.codemancers.com/posts/2016-12-26-autodeploy-from-github-using-aws-codedeploy/
+
+:TODO: pivanchy: Configure web server(Apache, nginx, etc. ) instead of Django server.
