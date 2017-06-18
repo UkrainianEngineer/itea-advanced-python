@@ -9,6 +9,7 @@ sudo yum install python-dev
 sudo yum install build-essential
 
 # Install virtualenvwrapper
+sudo pip install --upgrade pip
 sudo pip install virtualenvwrapper
 
 if [[ ! -s "$HOME/.bash_profile" && -s "$HOME/.profile" ]] ; then
@@ -22,9 +23,9 @@ if ! grep -q 'virtualenvwrapper.sh' "${profile_file}" ; then
   echo "source /usr/local/bin/virtualenvwrapper.sh" >> "${profile_file}"
 fi
 
-source ${profile_file}
+source "${profile_file}"
 
-echo "Current folder" + pwd
+echo "Current folder" + $pwd
 
 # Prepare virtual environment.
 mkvirtualenv travel_platform
