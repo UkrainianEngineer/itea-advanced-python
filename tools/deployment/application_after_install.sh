@@ -5,8 +5,8 @@ sudo yum upgrade
 
 # Install Python and some basic packages.
 sudo yum install python-pip
-sudo yum install python-dev
-sudo yum install build-essential
+sudo yum install python-devel
+sudo yum groupinstall 'Development Tools'
 
 # Install virtualenvwrapper
 sudo pip install --upgrade pip
