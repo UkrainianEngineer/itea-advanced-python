@@ -1,4 +1,7 @@
 # TODO execute `python setup.py install` command.
+
+TRAVEL_PLATFORM_FILES=/usr/local/etc/travel_platform
+
 # Update and upgrade package repositories.
 sudo yum update
 sudo yum upgrade
@@ -10,7 +13,7 @@ sudo yum install python-devel
 sudo yum groupinstall 'Development Tools'
 
 # Install virtualenvwrapper
-pip install virtualenvwrapper
+sudo pip install virtualenvwrapper
 
 if [[ ! -s "$HOME/.bash_profile" && -s "$HOME/.profile" ]] ; then
   profile_file="$HOME/.profile"
@@ -32,8 +35,8 @@ mkvirtualenv travel_platform
 workon travel_platform
 
 # Install packages.
-pip install -r /usr/local/etc/requirements.txt
+pip install -r $TRAVEL_PLATFORM_FILES/requirements.txt
 
 # Install custom packages.
-python setup.py install
+python $TRAVEL_PLATFORM_FILES/setup.py install
 
