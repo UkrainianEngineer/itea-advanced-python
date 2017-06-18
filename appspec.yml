@@ -5,8 +5,9 @@ os: linux
 files:
   - source: requirements.txt
     destination: /usr/local/etc/travel_platform/
-  - source: setup.py
-    destination: /usr/local/etc/travel_platform/
+  # Temporary disabled.
+  #- source: setup.py
+  #  destination: /usr/local/etc/travel_platform/
 
 hooks:
   ApplicationStop:

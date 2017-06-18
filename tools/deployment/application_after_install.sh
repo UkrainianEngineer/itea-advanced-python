@@ -38,5 +38,5 @@ workon travel_platform
 pip install -r $TRAVEL_PLATFORM_FILES/requirements.txt
 
 # Install custom packages.
-python $TRAVEL_PLATFORM_FILES/setup.py install
+#python $TRAVEL_PLATFORM_FILES/setup.py install
 
