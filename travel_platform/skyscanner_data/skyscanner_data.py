@@ -13,29 +13,32 @@ data = {"market": "UK", "currency": "GBP", "locale": "en-GB",
         "outbounddate": "2017-07-15", "inbounddate": "2017-07-18"
 }
 
+class SkyscannerData(object):
 
-def cheapest_quotes(params):
-    result = flights_cache_service.get_cheapest_quotes(**params).parsed
-    return result
+    def __init__(self, params):
+        self.params = params
 
-
-def cheapest_price_by_route(params):
-    result = flights_cache_service.get_cheapest_price_by_route(**params).parsed
-    return result
-
-
-def cheapest_price_by_date(params):
-    result = flights_cache_service.get_cheapest_price_by_date(**params).parsed
-    return result
+    def cheapest_quotes(self):
+        result = flights_cache_service.get_cheapest_quotes(**self.params).parsed
+        return result
 
 
-def grid_prices_by_date(params):
-    result = flights_cache_service.get_grid_prices_by_date(**params).parsed
-    return result
+    def cheapest_price_by_route(self):
+        result = flights_cache_service.get_cheapest_price_by_route(**self.params).parsed
+        return result
 
-print cheapest_quotes(data)
-print cheapest_price_by_route(data)
-print cheapest_price_by_date(data)
-print grid_prices_by_date(data)
+
+    def cheapest_price_by_date(self):
+        result = flights_cache_service.get_cheapest_price_by_date(**self.params).parsed
+        return result
+
+
+    def grid_prices_by_date(self):
+        result = flights_cache_service.get_grid_prices_by_date(**self.params).parsed
+        return result
 
 sys.path.pop()
+
+# D = SkyscannerData(data)
+# from pprint import pprint
+# print(D.grid_prices_by_date())
