@@ -2,6 +2,10 @@ version: 0.0
 
 os: linux
 
+files:
+  - source: requirements.txt
+    destination: /usr/local/etc/
+
 hooks:
   ApplicationStop:
     - location: tools/deployment/application_stop.sh

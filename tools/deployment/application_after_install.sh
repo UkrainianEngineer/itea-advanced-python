@@ -5,12 +5,12 @@ sudo yum upgrade
 
 # Install Python and some basic packages.
 sudo yum install python-pip
-sudo pip install --upgrade pip
+sudo easy_install --upgrade pip
 sudo yum install python-devel
 sudo yum groupinstall 'Development Tools'
 
 # Install virtualenvwrapper
-sudo pip install virtualenvwrapper
+pip install virtualenvwrapper
 
 if [[ ! -s "$HOME/.bash_profile" && -s "$HOME/.profile" ]] ; then
   profile_file="$HOME/.profile"
@@ -32,7 +32,7 @@ mkvirtualenv travel_platform
 workon travel_platform
 
 # Install packages.
-pip install -r requirements.txt
+pip install -r /usr/local/etc/requirements.txt
 
 # Install custom packages.
 python setup.py install
