@@ -55,4 +55,4 @@ Deployment automatically
 After each commit into `master` branch application automatically deploys
 into AWS EC2 instance.
 
-:TODO: pivanchy: add link to auto deployment environment.
+:TODO: pivanchy: add link to auto deployment environment. deployed?
