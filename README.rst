@@ -1,5 +1,3 @@
-https://travis-ci.org/pivancy/itea-advanced-python.svg?branch=master
-=======
 .. image:: https://travis-ci.org/pivancy/itea-advanced-python.svg?branch=master
     :target: https://travis-ci.org/pivancy/itea-advanced-python
 

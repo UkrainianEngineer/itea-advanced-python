@@ -30,7 +30,7 @@ def coord(request):
     :return: name of location gotten from open maps API
     """
 
-    # TO DO RomanPryima: move url and api key into cfg file and make view
+    # TODO RomanPryima: move url and api key into cfg file and make view
     # getting them with cfg parser
 
     api_url = 'http://open.mapquestapi.com/geocoding/v1/reverse'
