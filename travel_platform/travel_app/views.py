@@ -1,4 +1,6 @@
 # -*- coding: utf-8 -*-
+
+
 from __future__ import unicode_literals
 
 from django.http import Http404
@@ -12,7 +14,7 @@ import requests
 import sys
 sys.path.append('../../config_parser')
 
-import config_parser
+from config_parser.config_reader import get_setting
 
 
 def index(request):
@@ -33,8 +35,12 @@ def coord(request):
     # TODO RomanPryima: move url and api key into cfg file and make view
     # getting them with cfg parser
 
-    api_url = 'http://open.mapquestapi.com/geocoding/v1/reverse'
-    api_key = 'lrGqjWqt82ZGMvQPA0SPXqctacNvptot'
+    conf_path = './config/configurations.cfg'
+    # api_url = 'http://open.mapquestapi.com/geocoding/v1/reverse'
+    # api_key = 'lrGqjWqt82ZGMvQPA0SPXqctacNvptot'
+    api_section = 'api.open.map'
+    api_url = get_setting(conf_path, api_section, 'API_URL')
+    api_key = get_setting(conf_path, api_section, 'API_KEY')
     coordinate_lon = request.GET.get('lon')
     coordinate_lat = request.GET.get('lat')
     location = str(','.join([coordinate_lat, coordinate_lon]))
