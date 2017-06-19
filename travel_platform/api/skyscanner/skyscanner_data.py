@@ -1,7 +1,3 @@
-import sys
-import os
-sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-
 from skyscanner.skyscanner import FlightsCache
 from conf import config
 
@@ -35,7 +31,6 @@ class SkyscannerData(object):
         result = flights_cache_service.get_grid_prices_by_date(**params).parsed
         return result
 
-sys.path.pop()
 
 D = SkyscannerData()
 from pprint import pprint
