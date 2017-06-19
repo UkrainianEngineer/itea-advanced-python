@@ -1,5 +1,17 @@
+dist: trusty
+sudo: required
+
 language: python
 install:
   - pip install -r requirements.txt
 script:
   - nosetests
+
+addons:
+  sonarqube:
+    organization: "itea-travel-platform" # the key of the org you chose at step #3
+    token:
+      secure: "93fd55831663ac969845c606005bee4771886fa0" # encrypted value of your token
+script:
+  # other script steps might be done before running the actual SonarQube analysis
+  - sonar-scanner

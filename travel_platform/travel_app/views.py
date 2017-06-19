@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
+from django.http import JsonResponse
+
 from django.conf import settings
 from django.shortcuts import render
 from django.views.decorators.cache import cache_page
@@ -10,6 +12,22 @@ from api.izi_travel.izi_travel_data import *
 
 def index(request):
     return render(request, 'travel_app/main.html')
+
+
+def coord(request):
+    """
+    View added for checking of interaction of map from landing page with
+    server.
+    :param request:
+    :return:
+    """
+
+    """TODO RomanPryima: make function sending coordinates and returning
+    to the frontend name of location received from map API"""
+
+    response = request.GET.get('lon') + " " + request.GET.get('lat')
+
+    return JsonResponse(response, safe=False)
 
 
 @cache_page(settings.CACHE_MIDDLEWARE_SECONDS)
