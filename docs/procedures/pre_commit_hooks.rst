@@ -34,4 +34,3 @@ validation of HTML pages and templates.
 
 It helps us to find critical things
 before core review process. It validates all of existing HTML pages in project.
-
