@@ -16,13 +16,13 @@ def index(request):
 
 def coord(request):
     """
-    View added for checking of interaction of map from landing page with 
+    View added for checking of interaction of map from landing page with
     server.
-    :param request: 
-    :return: 
+    :param request:
+    :return:
     """
 
-    """TODO RomanPryima: make function sending coordinates and returning 
+    """TODO RomanPryima: make function sending coordinates and returning
     to the frontend name of location received from map API"""
 
     response = request.GET.get('lon') + " " + request.GET.get('lat')
