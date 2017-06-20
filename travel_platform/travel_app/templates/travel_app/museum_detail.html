@@ -2,14 +2,18 @@
 {% load static from staticfiles %}
 {% block content %}
   <h2>{{ detail.name }}</h2>
-  <audio controls>
-    <source src="{{ detail.audio }}" type="audio/mpeg">
-  Your browser does not support the audio element.
-  </audio>
+  {% if detail.audio %}
+     {% for audio_url in detail.audio %}
+    <audio controls>
+      <source src="{{ audio_url }}" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
+    {% endfor %}
+  {% endif %}
 
   <div>
   {% for image in detail.images %}
-    <img src="{{ image }}" alt="museum">
+    <img src="{{ image }}" alt="{{ detail.name }}">
   {% endfor %}
   </div>
 

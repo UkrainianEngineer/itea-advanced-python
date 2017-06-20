@@ -9,10 +9,17 @@
       {% for museum in museums %}
         <h3>{{ museum.title }}</h3>
         <div>
-          <img src="{{ museum.image_url }}" alt="museum">
+          {% for image_url in museum.images  %}
+          <img src="{{ image_url }}" alt="{{ museum.title }}">
+            {% endfor %}
+        </div>
+        <div>
+          {% for lang in museum.languages %}
+            <a href="{% url "museum_detail" id_=museum.museum_uuid lang=lang %}">{{ lang }}</a>
+          {% endfor %}
         </div>
         <div class="details-link">
-          <a href="{% url "museum_detail" id_=museum.museum_uuid %}">Details about museum</a>
+          <a href="{% url "museum_detail" id_=museum.museum_uuid lang=museum.language %}">Details about museum</a>
         </div>
       {% endfor %}
 
@@ -25,10 +32,15 @@
         <h3>{{ tour.title }}</h3>
         {% for image in tour.images %}
           <div>
-            <img src="{{ image }}" alt="tour">
+            <img src="{{ image }}" alt="{{ tour.title }}">
           </div>
+          <div>
+          {% for lang in tour.languages %}
+            <a href="{% url "tour_detail" id_=tour.tour_uuid lang=lang %}">{{ lang }}</a>
+          {% endfor %}
+        </div>
           <div class="details-link">
-            <a href="{% url "tour_detail" id_=tour.tour_uuid %}">Details about tour</a>
+            <a href="{% url "tour_detail" id_=tour.tour_uuid lang=tour.language %}">Details about tour</a>
           </div>
         {% endfor %}
       {% endfor %}
