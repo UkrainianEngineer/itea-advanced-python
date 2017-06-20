@@ -8,7 +8,7 @@
 
     {% for image in attraction.images %}
       <div>
-        <img src="{{ image }}" alt="tourist_attraction">
+        <img src="{{ image }}" alt="{{ attraction.title }}">
       </div>
     {% endfor %}
 
