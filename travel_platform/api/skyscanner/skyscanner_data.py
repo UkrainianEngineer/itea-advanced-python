@@ -30,8 +30,3 @@ class SkyscannerData(object):
     def grid_prices_by_date(params):
         result = flights_cache_service.get_grid_prices_by_date(**params).parsed
         return result
-
-
-D = SkyscannerData()
-from pprint import pprint
-pprint(D.grid_prices_by_date(data))
