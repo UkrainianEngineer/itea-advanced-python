@@ -41,12 +41,12 @@ def coord(request):
     api_key = get_setting(CONF_PATH, api_section, 'API_KEY')
     coordinate_lon = request.GET.get('lon')
     coordinate_lat = request.GET.get('lat')
-    location = str(','.join([coordinate_lat, coordinate_lon]))
+    location = ','.join([coordinate_lat, coordinate_lon])
     params = {'key': api_key, 'location': location}
 
     location_request = requests.get(api_url, params=params)
     location_data = location_request.json()
 
     response = location_data['results'][0]['locations'][0]['adminArea5']
-    response = str(response.encode('utf-8'))
+    response = response.encode('utf-8')
     return JsonResponse(response, safe=False)
