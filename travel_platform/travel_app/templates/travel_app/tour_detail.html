@@ -19,10 +19,10 @@
     </div>
     {% for audio in attraction.audio %}
       {% if audio %}
-        <audio controls>
-          <source src="{{ audio }}" type="audio/mpeg">
+      <audio controls>
+        <source src="{{ audio }}" type="audio/mpeg">
           Your browser does not support the audio element.
-        </audio>
+      </audio>
       {% endif %}
       {% endfor %}
   {% endfor %}

@@ -323,7 +323,7 @@ class IziTravelApiClient(BaseIziTravelApiClient):
                 "name": content.get("title", ""),
                 "audio": [self._prepare_audio_url(content_provider_uuid,
                                                   audio_uuid) for audio_uuid
-                                                        in audio_uuids],
+                          in audio_uuids],
                 "description": content.get("desc", ""),
                 "address": museum_data.get("contacts", {}),
                 "reviews": museum_data.get("reviews", {}),
@@ -420,7 +420,8 @@ class IziTravelApiClient(BaseIziTravelApiClient):
             audio = tour_data.get("content", []).pop().get("audio", [])
             for audio_tour in audio:
                 audio_uuid = audio_tour.get("uuid", "")
-                audio_url = self._prepare_audio_url(content_provider, audio_uuid)
+                audio_url = self._prepare_audio_url(content_provider,
+                                                    audio_uuid)
                 audios.append(audio_url)
         return audios
 

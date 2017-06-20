@@ -13,7 +13,8 @@ def find_museums(city):
 
 
 def find_museum_detail(museum_uuid, languages=None):
-    return client.get_museum_detail_with_audio(museum_uuid, languages=languages)
+    return client.get_museum_detail_with_audio(museum_uuid,
+                                               languages=languages)
 
 
 def find_city_tours(city):

@@ -15,7 +15,7 @@
         </div>
         <div>
           {% for lang in museum.languages %}
-            <a href="{% url "museum_detail" id_=museum.museum_uuid lang=lang %}">{{ lang }}</a>
+          <a href="{% url "museum_detail" id_=museum.museum_uuid lang=lang %}">{{ lang }}</a>
           {% endfor %}
         </div>
         <div class="details-link">
