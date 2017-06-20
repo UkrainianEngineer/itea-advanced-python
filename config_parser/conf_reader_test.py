@@ -3,8 +3,6 @@ from config_reader import get_setting
 
 
 class TestExample(unittest.TestCase):
-    def setUp(self):
-        pass
 
     def test_get_item(self):
         cfg_file = '../travel_platform/travel_app/config/configurations.cfg'
