@@ -15,6 +15,7 @@ from config_parser.config_reader import get_setting
 
 from config.conf import CONF_PATH
 
+# FIXME RomanPryima: remade sys path in a properly way
 sys.path.append('../../config_parser/')
 sys.path.append('./config')
 
@@ -31,7 +32,7 @@ def coord(request):
 
     :param request: data received from frontend, containing longitude and
       latitude
-    :return: name of location gotten from open maps APInav
+    :return: name of location gotten from open maps API.
     to
     """
 
