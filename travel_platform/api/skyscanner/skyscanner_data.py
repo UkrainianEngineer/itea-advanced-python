@@ -10,9 +10,8 @@ data = {"market": "UK", "currency": "GBP", "locale": "en-GB",
 
 
 def cheapest_quotes(params):
-    print params
-    # result = flights_cache_service.get_cheapest_quotes(**params).parsed
-    # return result
+    result = flights_cache_service.get_cheapest_quotes(**params).parsed
+    return result
 
 
 def cheapest_price_by_route(params):

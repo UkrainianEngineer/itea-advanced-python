@@ -1,8 +1,5 @@
 import unittest
-import requests
 from skyscanner_data import *
-
-# FIXME: Sasha: Fix all these tests, they fails because of invalid parameters.
 
 
 class SkyscannerDataTest(unittest.TestCase):
@@ -11,24 +8,18 @@ class SkyscannerDataTest(unittest.TestCase):
                      "originplace": "SIN-sky", "destinationplace": "KUL-sky",
                      "outbounddate": "2017-07-15", "inbounddate": "2017-07-16"}
 
-    def test_cheapest_quotes(self.data):
-        response = cheapest_quotes(**self.data)
-        self.assertEquals(requests.get(response).status_code, 200)
+    def test_cheapest_quotes(self):
+        response = cheapest_quotes(self.data)
+        self.assertTrue(response)
 
-    # def test_cheapest_price_by_route(self):
-    #     actual_result = cheapest_price_by_route(**self.data)
-    #     expected_result = {}
-    #
-    #     self.assertEqual(actual_result, expected_result)
-    #
-    # def test_cheapest_price_by_date(self):
-    #     actual_result = cheapest_price_by_date(**self.data)
-    #     expected_result = {}
-    #
-    #     self.assertEqual(actual_result, expected_result)
-    #
-    # def test_grid_prices_by_date(self):
-    #     actual_result = grid_prices_by_date(**self.data)
-    #     expected_result = {}
-    #
-    #     self.assertEqual(actual_result, expected_result)
+    def test_cheapest_price_by_route(self):
+        response = cheapest_price_by_route(self.data)
+        self.assertTrue(response)
+
+    def test_cheapest_price_by_date(self):
+        response = cheapest_price_by_date(self.data)
+        self.assertTrue(response)
+
+    def test_grid_prices_by_date(self):
+        response = grid_prices_by_date(self.data)
+        self.assertTrue(response)
