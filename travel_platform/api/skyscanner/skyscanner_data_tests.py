@@ -1,6 +1,6 @@
 import unittest
 
-from skyscanner_data_trial import *
+from skyscanner_data import *
 
 # FIXME: Sasha: Fix all these tests, they fails because of invalid parameters.
 
