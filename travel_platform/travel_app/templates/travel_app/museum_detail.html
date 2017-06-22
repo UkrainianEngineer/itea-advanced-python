@@ -1,0 +1,44 @@
+{% extends "travel_app/base.html" %}
+{% load static from staticfiles %}
+{% block content %}
+  <h2>{{ detail.name }}</h2>
+  {% if detail.audio %}
+     {% for audio_url in detail.audio %}
+    <audio controls>
+      <source src="{{ audio_url }}" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
+    {% endfor %}
+  {% endif %}
+
+  <div>
+  {% for image in detail.images %}
+    <img src="{{ image }}" alt="{{ detail.name }}">
+  {% endfor %}
+  </div>
+
+  {% autoescape off %}
+    {{ detail.description }}
+  {% endautoescape %}
+  {% with detail.reviews as review %}
+    <div>
+      Average rating: {{ review.rating_average }}
+    </div>
+    <div>
+      Number of reviews: {{ review.reviews_count }}
+    </div>
+    <div>
+      Rating count: {{ review.ratings_count }}
+    </div>
+  {% endwith %}
+  <div>
+    <h4>Address: </h4>
+    {{ detail.address.city }},
+    {{ detail.address.address }}
+  </div>
+{% endblock %}
+
+
+
+
+

@@ -1,0 +1,30 @@
+{% extends "travel_app/base.html" %}
+{% load static from staticfiles %}
+{% block content %}
+
+  {% for attraction in detail %}
+  <h1>{{ attraction.tour_title }}</h1>
+    <h3>{{ attraction.title }}</h3>
+
+    {% for image in attraction.images %}
+      <div>
+        <img src="{{ image }}" alt="{{ attraction.title }}">
+      </div>
+    {% endfor %}
+
+    <div>
+      {% autoescape off %}
+        {{ attraction.description }}
+      {% endautoescape %}
+    </div>
+    {% for audio in attraction.audio %}
+      {% if audio %}
+      <audio controls>
+        <source src="{{ audio }}" type="audio/mpeg">
+          Your browser does not support the audio element.
+      </audio>
+      {% endif %}
+      {% endfor %}
+  {% endfor %}
+
+{% endblock %}

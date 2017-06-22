@@ -27,7 +27,7 @@ class IziTravelTest(unittest.TestCase):
     def test_get_city_museums_returns_museums(self):
         result = self.client.get_city_museums(self.city)
         self.assertTrue(len(result) > 0)
-        self.assertEquals(requests.get(result[0]["image_url"]).status_code,
+        self.assertEquals(requests.get(result[0]["images"][0]).status_code,
                           200)
 
     def test_unexisting_city_museums_returns_empty_list(self):
@@ -55,7 +55,7 @@ class IziTravelTest(unittest.TestCase):
         result = self.client.get_museum_detail_with_audio(museum_uuid)
         keys = ["name", "audio", "description", "address", "reviews", "images"]
         self.assertTrue(all([key in result for key in keys]))
-        self.assertEquals(requests.get(result["audio"]).status_code,
+        self.assertEquals(requests.get(result["audio"][0]).status_code,
                           200)
 
     def test_get_unexisting_museum_raises_error(self):
