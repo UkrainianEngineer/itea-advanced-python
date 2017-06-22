@@ -20,6 +20,6 @@ func3(a, b)
 print c
 
 def func4(*args):
-	return (args)
+	return args
 
 print func4(1, 2, 3)
