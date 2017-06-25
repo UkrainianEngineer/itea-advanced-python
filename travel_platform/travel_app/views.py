@@ -4,14 +4,14 @@ from __future__ import unicode_literals
 import requests
 import sys
 
-from django.http import JsonResponse
+from django.http import JsonResponse, HttpResponse
 from django.conf import settings
 from django.shortcuts import render
 from django.views.decorators.cache import cache_page
 
 from api.izi_travel.izi_travel_data import *
 from config.conf import CONF_PATH
-
+from api.foursquare.foursquare_travel_data import *
 
 # FIXME RomanPryima: remade sys path in a properly way
 sys.path.append('../../config_parser/')
@@ -49,6 +49,21 @@ def coord(request):
     response = location_data['results'][0]['locations'][0]['adminArea5']
     response = response.encode('utf-8')
     return JsonResponse(response, safe=False)
+
+
+def foursquare_data(request):
+    """
+        This view receives name of location from the GET request,
+        sends it
+        to the Foursquare API. Than returns data of the location received
+        from API
+        to the frontend.
+
+        :param request: data received from frontend, containing name
+         of location
+        :return:
+        """
+    return HttpResponse(foursquare_find_venue(request))
 
 
 @cache_page(settings.CACHE_MIDDLEWARE_SECONDS)

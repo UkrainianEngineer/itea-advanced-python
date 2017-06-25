@@ -9,5 +9,5 @@ client = foursquare.Foursquare(
     client_secret=get_setting(CONF_PATH, "api.foursquare", "API_SECRET"))
 
 
-def find_venue(city):
-    return client.venues.explore(params={'near': city})
+def foursquare_find_venue(city):
+    return client.venues.search(params={'near': city})
