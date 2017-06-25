@@ -27,7 +27,7 @@
       url: '/travel_app/coord',
       data: coordinates,
       success: function (response){
-      $("#initial-location").val(response)
+      $("#desired-location").val(response)
       },
     })
   });
