@@ -1,3 +1,4 @@
+from multiprocessing.pool import ThreadPool
 import requests
 
 from conf import CONF_PATH
@@ -241,10 +242,10 @@ class IziTravelApiClient(BaseIziTravelApiClient):
                             "location": obj.get("location", {}),
                             "images": []
                         }
-                        for image in obj["images"]:
+                        for image in obj.get("images", []):
                             image_url = self._prepare_image_url(
-                                city_tour["content_provider"]["uuid"],
-                                image['uuid'])
+                                city_tour["content_provider"].get("uuid", ""),
+                                image.get('uuid'))
                             city_tour["images"].append(image_url)
                         tours.append(city_tour)
         return tours
@@ -391,8 +392,6 @@ class IziTravelApiClient(BaseIziTravelApiClient):
                     }
                     if languages is None:
                         languages = self.LANGUAGES
-                    attraction["audio"] = self.get_tourist_attraction_audio(
-                        attraction["attr_uuid"], languages=languages)
                     images = child.get("images", [])
                     content_provider = child.get("content_provider",
                                                  {}).get("uuid", "")
@@ -402,7 +401,32 @@ class IziTravelApiClient(BaseIziTravelApiClient):
                         )
                         attraction["images"].append(image_url)
                     tourist_attractions.append(attraction)
+            audios = self._get_attraction_audio(tourist_attractions, languages)
+            for attraction in tourist_attractions:
+                attraction["audio"] = audios.get(attraction["attr_uuid"], [])
+
         return tourist_attractions
+
+    def _get_attraction_audio(self, attractions, languages):
+        """
+        Get all audios in parallel.
+        Args:
+            attractions (list): Tourist attractions.
+            languages (str): Language code of the content.
+        Returns:
+            dict: All audio:
+            {
+            "attraction_uuid_1":
+            ["https://media.izi.travel/etetee23242/tegdgc454.m4e"],
+            "attraction_uuid_2":
+            ["https://media.izi.travel/drthf45656/hfch55.m4e"]
+            }
+        """
+        from izi_travel_data import audio_worker
+        pool = ThreadPool(processes=len(attractions))
+        audios = pool.map(audio_worker, [(attraction["attr_uuid"], languages)
+                                         for attraction in attractions])
+        return dict(audios)
 
     def get_tourist_attraction_audio(self, attraction_uuid, languages=None):
         url = self._prepare_base_url(self.ATTRACTION_ENDPOINT.format(
