@@ -18,6 +18,10 @@ class FiveFingersTest(unittest.TestCase):
         result = finger_name(9, ['pinky', 'ring', 'middle', 'index', 'thumb'])
         self.assertEqual(result, 'pinky')
 
+    def test_five_fingers_n10(self):
+        result = finger_name(10, ['pinky', 'ring', 'middle', 'index', 'thumb'])
+        self.assertEqual(result, 'ring')
+
     def test_five_fingers_n1992(self):
         result = finger_name(1992, ['pinky', 'ring', 'middle', 'index', 'thumb'])
         self.assertEqual(result, 'ring')
@@ -57,6 +61,10 @@ class FiveFingersTest(unittest.TestCase):
     def test_three_fingers_n10(self):
         result = finger_name(10, ['pinky', 'ring', 'middle'])
         self.assertEqual(result, 'ring')
+
+    def test_six_fingers_n7(self):
+        result = finger_name(7, ['minipinky', 'pinky', 'ring', 'middle', 'index', 'thumb'])
+        self.assertEqual(result, 'index')
 
     def test_seven_fingers_n7(self):
         result = finger_name(7, ['minipinky', 'pinky', 'ring', 'middle', 'index', 'thumb', 'megathumb'])
