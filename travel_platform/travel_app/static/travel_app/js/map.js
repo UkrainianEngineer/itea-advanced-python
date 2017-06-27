@@ -1,3 +1,11 @@
+ $(document).ready(function(){
+  $.getJSON("http://ip-api.com/json/?callback=?", function (data){
+  	var city = data["city"];
+  	$("#initial-location").val(city)
+   }); 
+ });
+
+
  $(document).ready(function() {
   map = new OpenLayers.Map("map");
   var mapnik = new OpenLayers.Layer.OSM();
@@ -27,7 +35,7 @@
       url: '/travel_app/coord',
       data: coordinates,
       success: function (response){
-      $("#initial-location").val(response)
+      $("#desired-location").val(response)
       },
     })
   });
