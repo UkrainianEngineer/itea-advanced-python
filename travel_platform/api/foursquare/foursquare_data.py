@@ -9,6 +9,14 @@ client = foursquare.Foursquare(
 
 
 def foursquare_find_venue(city, query='museum'):
+    """
+    Data of requested venues in desired city.
+    :param city: str Name of the location given by view "get_city_tourist_info"
+    :param query: str type of venues for searching.
+    :return: A lis of tuples containing id, name, address*, phone* and photo*
+    of venues fonded in the city.
+    * - if available.
+    """
     city_venues_data = client.venues.search(
         params={'near': city, 'query': query})
     venues_data = []
@@ -27,6 +35,13 @@ def foursquare_find_venue(city, query='museum'):
 
 
 def foursquare_venue_photos(venue_id, size='width500'):
+    """
+    Picture of requested venue.
+    :param venue_id: str id of venue, provided by "foursquare_find_venue"
+     function.
+    :param size: str size of picture. By default - width - 500 pixels.
+    :return: str url of photos of venue.
+    """
     venue_data = client.venues.photos(venue_id, params={})
     items = venue_data.get('photos').get('items')
     venue_photo = ''

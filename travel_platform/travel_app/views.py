@@ -54,6 +54,11 @@ def coord(request):
 
 @cache_page(settings.CACHE_MIDDLEWARE_SECONDS)
 def get_city_tourist_info(request):
+    """
+    Returns page containing data of museums and tours in desired location.
+    :param request: GET request from frontend.
+    :return: page containing data of museums and tours in desired location
+    """
     city = request.GET['desired_location']
     museums = find_museums(city)
     tours = find_city_tours(city)
