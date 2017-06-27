@@ -1,4 +1,3 @@
-import json
 import foursquare
 
 from conf import CONF_PATH

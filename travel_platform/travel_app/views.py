@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
-import json
 import requests
 import sys
 
@@ -40,7 +39,6 @@ def coord(request):
     api_url = get_setting(CONF_PATH_OM, api_section, 'API_URL')
     api_key = get_setting(CONF_PATH_OM, api_section, 'API_KEY')
 
-    print (api_url)
     coordinate_lon = request.GET.get('lon')
     coordinate_lat = request.GET.get('lat')
     location = ','.join([coordinate_lat, coordinate_lon])
