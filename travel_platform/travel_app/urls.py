@@ -10,5 +10,4 @@ urlpatterns = [
         views.museum_detail, name='museum_detail'),
     url(r'^tour_detail/(?P<id_>[^/]+)/(?P<lang>[a-zA-z]+)/$',
         views.tour_detail, name='tour_detail'),
-    url(r'^foursquare_search/', views.foursquare_data, name='foursquare_data')
 ]

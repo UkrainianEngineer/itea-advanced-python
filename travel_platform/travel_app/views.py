@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
+import json
 import requests
 import sys
 
@@ -53,27 +54,15 @@ def coord(request):
     return JsonResponse(response, safe=False)
 
 
-def foursquare_data(request):
-    """
-        This view receives name of location from the GET request,
-        sends it
-        to the Foursquare API. Than returns data of the location received
-        from API
-        to the frontend.
-
-        :param request: data received from frontend, containing name
-         of location
-        :return:
-        """
-    return HttpResponse(foursquare_find_venue(request))
-
-
 @cache_page(settings.CACHE_MIDDLEWARE_SECONDS)
 def get_city_tourist_info(request):
     city = request.GET['desired_location']
     museums = find_museums(city)
     tours = find_city_tours(city)
     context = {'museums': museums, 'tours': tours, 'city': city}
+    f_museums = foursquare_find_venue(city, 'museum')
+    f_tours = foursquare_find_venue(city, 'tour')
+    context.update({'f_museums': f_museums, 'f_tours': f_tours})
     return render(request, 'travel_app/search.html', context=context)
 
 
