@@ -18,8 +18,14 @@ def func3(a, b):
 
 func3(a, b)
 print c
+print func3(a, b)
 
 def func4(*args):
 	return args
 
 print func4(1, 2, 3)
+
+def func5(kwargs):
+	return kwargs.keys()
+
+print func5({'a':1, 'b':2})

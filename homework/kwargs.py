@@ -12,9 +12,9 @@ def func3(**kwargs):
 
 func1(1, 2, 3)   # (1, 2, 3) - tuple
 
-func2(a=1, b=2, c=3)  #  {'a': 1, 'c': 3, 'b': 2} - dict
+func2(a=1, b=2, c=3)  # {'a': 1, 'c': 3, 'b': 2} - dict
 
-# func3(a=1, b=2, c=3)  #  a c b 1 3 2
+func3(a=1, b=2, c=3)  # a c b 1 3 2
 
 def func4(kwargs):
     for i in kwargs:

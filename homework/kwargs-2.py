@@ -3,7 +3,7 @@ print data
 print data.keys()
 print data.values()
 
-def func(num):
-    return sum(**num)
+def func(a, b, c):
+    return a + b + c
 
 print func(**data)
