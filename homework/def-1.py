@@ -28,4 +28,4 @@ print func4(1, 2, 3)
 def func5(kwargs):
 	return kwargs.keys()
 
-print func5({'a':1, 'b':2})
+print func5({'a': 1, 'b': 2})

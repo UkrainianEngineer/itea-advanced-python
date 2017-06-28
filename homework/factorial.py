@@ -12,7 +12,8 @@ def fact2(n):
     return f
 
 def fact3(n):
-    return fact3(n)
+    return n * fact3(n-1)
 
 print fact1(5)
 print fact2(5)
+print fact3(2)
