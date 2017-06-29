@@ -27,19 +27,6 @@ def find_tour_attractions(tour_uuid, languages=None):
     return client.get_tourist_attractions(tour_uuid, languages=languages)
 
 
-def audio_worker(params):
-    """
-    Thread worker that get audio.
-    Args:
-        params (tuple): Attraction uuid and language.
-    Returns:
-        tuple: Attraction uuid and its list of audio.
-    """
-    attraction_uuid, languages = params
-    return (attraction_uuid, client.get_tourist_attraction_audio(
-        attraction_uuid, languages))
-
-
 def get_city_object_worker(params):
     """
     Get list of city objects. Worker for thread.

@@ -4,6 +4,7 @@ from __future__ import unicode_literals
 import requests
 import sys
 
+import time
 from django.http import JsonResponse
 from django.conf import settings
 from django.shortcuts import render
@@ -70,6 +71,8 @@ def museum_detail(request, id_, lang):
 
 @cache_page(settings.CACHE_MIDDLEWARE_SECONDS)
 def tour_detail(request, id_, lang):
+    s = time.time()
     detail = find_tour_attractions(id_, languages=lang)
+    print time.time() - s
     return render(request, 'travel_app/tour_detail.html',
                   context={'detail': detail})

@@ -97,6 +97,7 @@ class IziTravelApiClient(BaseIziTravelApiClient):
     REVIEW_ENDPOINT = 'mtgobjects/{obj_uuid}/reviews'
     FEATURED_ENDPOINT = 'featured'
     SEARCH_ENDPOINT = "mtg/objects/search"
+    BATCH_ENDPOINT = "mtgobjects/batch/{uuids}"
 
     def get_city_uuid(self, city):
         """
@@ -364,7 +365,7 @@ class IziTravelApiClient(BaseIziTravelApiClient):
             tour_uuid=tour_uuid))
 
         if params is None:
-            prepared_params = {"includes": "all,city,country",
+            prepared_params = {"form": "full", "includes": "all,city,country",
                                "except": "translations,publisher,download"}
             params = self._prepare_params(**prepared_params)
         if languages is not None:
@@ -401,53 +402,41 @@ class IziTravelApiClient(BaseIziTravelApiClient):
                         )
                         attraction["images"].append(image_url)
                     tourist_attractions.append(attraction)
-            audios = self._get_attraction_audio(tourist_attractions, languages)
-            for attraction in tourist_attractions:
-                attraction["audio"] = audios.get(attraction["attr_uuid"], [])
-
+        attr_uuids = ",".join(attr["attr_uuid"] for attr in
+                              tourist_attractions)
+        audios = self._get_tourist_attractions_audio(attr_uuids,
+                                                     languages=languages)
+        for attraction in tourist_attractions:
+            attraction["audio"] = audios[attraction["attr_uuid"]]
         return tourist_attractions
 
-    def _get_attraction_audio(self, attractions, languages):
+    def _get_tourist_attractions_audio(self, attr_uuids, languages=None):
         """
-        Get all audios in parallel.
+        Get all tourist attractions audio with one request.
         Args:
-            attractions (list): Tourist attractions.
-            languages (str): Language code of the content.
+            attr_uuids (): string of comma separated uuids
+            of tourist attractions.
+            languages (str): language code.
         Returns:
-            dict: All audio:
-            {
-            "attraction_uuid_1":
-            ["https://media.izi.travel/etetee23242/tegdgc454.m4e"],
-            "attraction_uuid_2":
-            ["https://media.izi.travel/drthf45656/hfch55.m4e"]
-            }
+            dict: tourist attractions audio.
         """
-        from izi_travel_data import audio_worker
-        pool = ThreadPool(processes=len(attractions))
-        audios = pool.map(audio_worker, [(attraction["attr_uuid"], languages)
-                                         for attraction in attractions])
-        return dict(audios)
-
-    def get_tourist_attraction_audio(self, attraction_uuid, languages=None):
-        url = self._prepare_base_url(self.ATTRACTION_ENDPOINT.format(
-            attr_uuid=attraction_uuid))
-        params = self._prepare_params(**{"except": "city,country,publisher"})
-        if languages is None:
-            languages = self.LANGUAGES
-        params.update({"languages": languages})
+        url = self._prepare_base_url(self.BATCH_ENDPOINT.format(
+            uuids=attr_uuids))
+        params = self._prepare_params(form="full")
+        if languages is not None:
+            params.update(languages=languages)
         response = self._make_request(url, **params)
-        audios = []
-        if response:
-            tour_data = response.pop()
-            content_provider = tour_data.get("content_provider",
-                                             "").get("uuid", "")
-            audio = tour_data.get("content", []).pop().get("audio", [])
-            for audio_tour in audio:
-                audio_uuid = audio_tour.get("uuid", "")
-                audio_url = self._prepare_audio_url(content_provider,
-                                                    audio_uuid)
-                audios.append(audio_url)
-        return audios
+        attr_audio = []
+        for attr in response:
+            content_provider = attr.get("content_provider",
+                                        "").get("uuid", "")
+            attr_uuid = attr.get("uuid", "")
+            audios = [audio.get("uuid", "") for audio in
+                      attr.get("content", []).pop().get("audio", [])]
+            audio_urls = [self._prepare_audio_url(content_provider, audio)
+                          for audio in audios]
+            attr_audio.append((attr_uuid, audio_urls))
+        return dict(attr_audio)
 
     def get_object_reviews_and_rating(self, obj_uuid):
         """
