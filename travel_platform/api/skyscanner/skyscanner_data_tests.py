@@ -8,36 +8,27 @@ class SkyscannerDataTest(unittest.TestCase):
                      "originplace": "SIN-sky", "destinationplace": "KUL-sky",
                      "outbounddate": "2017-07-15", "inbounddate": "2017-07-16"}
 
-    def test_cheapest_quotes(self):
-        response = cheapest_quotes(self.data)
-        self.assertTrue(response)
+    def test_cheapest_quotes_if_keys_in(self):
+        result = cheapest_quotes(self.data)
+        keys = ['Carriers', 'Currencies', 'Places', 'Quotes']
+        self.assertTrue(all([key in result for key in keys]))
 
-    def test_cheapest_quotes_if_params_in(self):
-        params = ['Carriers', 'Currencies', 'Places', 'Quotes']
-        response = True
-        for param in params:
-            if param not in cheapest_quotes(self.data):
-                response = False
-                break
-        self.assertTrue(response)
+    def test_cheapest_price_by_route_if_keys_in(self):
+        result = cheapest_price_by_route(self.data)
+        keys = ['Carriers', 'Currencies', 'Places', 'Quotes']
+        self.assertTrue(all([key in result for key in keys]))
 
-    def test_cheapest_price_by_route(self):
-        response = cheapest_price_by_route(self.data)
-        self.assertTrue(response)
+    def test_cheapest_price_by_date_if_keys_in(self):
+        result = cheapest_price_by_date(self.data)
+        keys = ['Carriers', 'Currencies', 'Places', 'Quotes']
+        self.assertTrue(all([key in result for key in keys]))
 
-    def test_cheapest_price_by_route_if_params_in(self):
-        params = ['Carriers', 'Currencies', 'Places', 'Quotes']
-        response = True
-        for param in params:
-            if param not in cheapest_quotes(self.data):
-                response = False
-                break
-        self.assertTrue(response)
+    def test_grid_prices_by_date_if_keys_in(self):
+        result = grid_prices_by_date(self.data)
+        keys = ['Carriers', 'Currencies', 'Places', 'Dates']
+        self.assertTrue(all([key in result for key in keys]))
 
-    def test_cheapest_price_by_date(self):
-        response = cheapest_price_by_date(self.data)
-        self.assertTrue(response)
-
-    def test_grid_prices_by_date(self):
-        response = grid_prices_by_date(self.data)
-        self.assertTrue(response)
+    def test_grid_prices_by_date_if_key_not(self):
+        result = grid_prices_by_date(self.data)
+        key = 'Quotes'
+        self.assertFalse(key in result)
