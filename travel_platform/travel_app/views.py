@@ -63,9 +63,11 @@ def get_city_tourist_info(request):
     museums = find_museums(city)
     tours = find_city_tours(city)
     context = {'museums': museums, 'tours': tours, 'city': city}
-    f_museums = foursquare_find_venue(city, 'museum')
-    f_tours = foursquare_find_venue(city, 'tour')
-    context.update({'f_museums': f_museums, 'f_tours': f_tours})
+    foursquare_museums = foursquare_find_venue(city, 'museum')
+    foursquare_tours = foursquare_find_venue(city, 'tour')
+    context.update(
+        {'foursquare_museums': foursquare_museums,
+         'foursquare_tours': foursquare_tours})
     return render(request, 'travel_app/search.html', context=context)
 
 
