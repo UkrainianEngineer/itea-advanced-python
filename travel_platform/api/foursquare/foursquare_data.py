@@ -3,7 +3,7 @@ import foursquare
 from conf import CONF_PATH
 from config_parser.config_reader import get_setting
 
-client = foursquare.Foursquare(
+foursquare_client = foursquare.Foursquare(
     client_id=get_setting(CONF_PATH, "api.foursquare", "API_ID"),
     client_secret=get_setting(CONF_PATH, "api.foursquare", "API_SECRET"))
 
@@ -17,7 +17,7 @@ def foursquare_find_venue(city, query='museum'):
     of venues fonded in the city.
     * - if available.
     """
-    city_venues_data = client.venues.search(
+    city_venues_data = foursquare_client.venues.search(
         params={'near': city, 'query': query})
     venues_data = []
     for venue in city_venues_data['venues']:
@@ -42,7 +42,7 @@ def foursquare_venue_photos(venue_id, size='width500'):
     :param size: str size of picture. By default - width - 500 pixels.
     :return: str url of photos of venue.
     """
-    venue_data = client.venues.photos(venue_id, params={})
+    venue_data = foursquare_client.venues.photos(venue_id, params={})
     items = venue_data.get('photos').get('items')
     venue_photo = ''
     if items:
