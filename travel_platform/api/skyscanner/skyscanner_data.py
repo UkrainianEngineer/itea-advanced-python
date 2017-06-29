@@ -27,6 +27,3 @@ def cheapest_price_by_date(params):
 def grid_prices_by_date(params):
     result = flights_cache_service.get_grid_prices_by_date(**params).parsed
     return result
-
-from pprint import pprint
-pprint(grid_prices_by_date(data))
