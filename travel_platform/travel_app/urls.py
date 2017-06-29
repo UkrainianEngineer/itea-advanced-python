@@ -10,4 +10,6 @@ urlpatterns = [
         views.museum_detail, name='museum_detail'),
     url(r'^tour_detail/(?P<id_>[^/]+)/(?P<lang>[a-zA-z]+)/$',
         views.tour_detail, name='tour_detail'),
+    url(r'^cities/$', views.get_available_cities_from_izi_travel,
+        name='cities')
 ]
