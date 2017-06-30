@@ -12,3 +12,4 @@ pytz==2017.2
 six==1.10.0
 template-remover==0.1.9
 requests==2.14.2
+skyscanner==1.1.4
