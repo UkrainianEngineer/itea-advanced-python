@@ -1,3 +1,7 @@
 *.pyc
 .coverage
 cover/
+.DS_Store
+/build/
+/config_parser.egg-info/
+/dist/
