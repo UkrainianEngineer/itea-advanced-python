@@ -16,18 +16,18 @@ class IziTravelRealDataTest(unittest.TestCase):
         self.assertTrue(len(museums) > 1)
         for museum in museums:
             self.assertIn("title", museum)
-            self.assertIn("image_url", museum)
+            self.assertIn("images", museum)
             self.assertIn("museum_uuid", museum)
             self.assertIn("language", museum)
             self.assertIn("map", museum)
             self.assertIn("location", museum)
-        self.assertEquals(requests.get(museums[0]["image_url"]).status_code,
+        self.assertEquals(requests.get(museums[0]["images"][0]).status_code,
                           200)
 
     def test_find_museum_detail_returns_museum_detail(self):
         museum_uuid = find_museums(self.city)[1]["museum_uuid"]
         museum_detail = find_museum_detail(museum_uuid)
-        keys = ["audio", "description", "reviews", "address"]
+        keys = ["audio", "description", "reviews", "address", "name", "images"]
         self.assertTrue(all([key in museum_detail for key in keys]))
 
     def test_find_city_tours_returns_list(self):
@@ -49,6 +49,6 @@ class IziTravelRealDataTest(unittest.TestCase):
         attractions = find_tour_attractions(tour_uuid)
         self.assertTrue(len(attractions) > 1)
         keys = ["title", "images", "description", "attr_uuid", "audio"]
-        self.assertEquals(requests.get(attractions[0]["audio"]).status_code,
+        self.assertEquals(requests.get(attractions[0]["audio"][0]).status_code,
                           200)
         self.assertTrue(all([key in attractions[0] for key in keys]))

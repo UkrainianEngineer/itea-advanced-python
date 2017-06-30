@@ -37,7 +37,7 @@ class BaseIziTravelApiClient(object):
                 response.status_code, response.content))
 
     def _prepare_image_url(self, content_provider_uuid,
-                           image_uuid, image_size='800x600'):
+                           image_uuid, image_size='480x360'):
         """
         Args:
             content_provider_uuid (str): Uuid of a content's provider.
@@ -189,14 +189,18 @@ class IziTravelApiClient(BaseIziTravelApiClient):
                     content_provider_uuid = (museum.get("content_provider",
                                                         {}).get("uuid", ""))
                     images = museum.get("images", [])
-                    images_uuid = images[0].get("uuid", "") if images else ""
-                    image_url = self._prepare_image_url(
-                        content_provider_uuid, images_uuid)
+                    images_urls = []
+                    for image in images:
+                        image_uuid = image.get("uuid", "")
+                        image_url = self._prepare_image_url(
+                            content_provider_uuid, image_uuid)
+                        images_urls.append(image_url)
                     mus = {
-                        "image_url": image_url,
+                        "images": images_urls,
                         "title": museum.get("title", ""),
                         "museum_uuid": museum.get("uuid", ""),
                         "language": museum.get("language", ""),
+                        "languages": museum.get("languages", []),
                         "map": museum.get("map", {}),
                         "location": museum.get("location", {})
                     }
@@ -230,6 +234,7 @@ class IziTravelApiClient(BaseIziTravelApiClient):
                             "tour_uuid": obj.get("uuid", ""),
                             "title": obj.get("title", ""),
                             "language": obj.get("language", ""),
+                            "languages": obj.get("languages", []),
                             "content_provider": obj.get("content_provider",
                                                         {}),
                             "reviews": obj.get("reviews", {}),
@@ -268,7 +273,7 @@ class IziTravelApiClient(BaseIziTravelApiClient):
 
         return cities
 
-    def get_museum_detail_with_audio(self, museum_uuid):
+    def get_museum_detail_with_audio(self, museum_uuid, languages=None):
         """
         Get details about museum with audio, reviews, description.
         Example response:
@@ -300,6 +305,8 @@ class IziTravelApiClient(BaseIziTravelApiClient):
             museum_uuid=museum_uuid))
         prepared_params = {"includes": "download,city",
                            "except": "publisher,children"}
+        if languages is not None:
+            prepared_params.update({"languages": languages})
         params = self._prepare_params(**prepared_params)
         response = self._make_request(url, **params)
         detail_museum_info = {}
@@ -310,11 +317,13 @@ class IziTravelApiClient(BaseIziTravelApiClient):
             content_provider_uuid = content_provider.get("uuid", "")
             content = museum_data.get("content", []).pop()
             audio = content.get("audio", [])
-            audio_uuid = audio[0].get("uuid", "") if audio else ""
+            audio_uuids = [aud.get("uuid", "") for aud in audio]
             detail_museum_info.update({
-                "name": content_provider.get("name", ""),
-                "audio": self._prepare_audio_url(content_provider_uuid,
-                                                 audio_uuid),
+
+                "name": content.get("title", ""),
+                "audio": [self._prepare_audio_url(content_provider_uuid,
+                                                  audio_uuid) for audio_uuid
+                          in audio_uuids],
                 "description": content.get("desc", ""),
                 "address": museum_data.get("contacts", {}),
                 "reviews": museum_data.get("reviews", {}),
@@ -330,7 +339,7 @@ class IziTravelApiClient(BaseIziTravelApiClient):
 
         return detail_museum_info
 
-    def get_tourist_attractions(self, tour_uuid, params=None):
+    def get_tourist_attractions(self, tour_uuid, params=None, languages=None):
         """
         Get list of tourist attractions included in a tour.
         Example response:
@@ -357,6 +366,8 @@ class IziTravelApiClient(BaseIziTravelApiClient):
             prepared_params = {"includes": "all,city,country",
                                "except": "translations,publisher,download"}
             params = self._prepare_params(**prepared_params)
+        if languages is not None:
+            params.update(languages=languages)
         response = self._make_request(url, **params)
         tourist_attractions = []
 
@@ -364,19 +375,24 @@ class IziTravelApiClient(BaseIziTravelApiClient):
 
             tour_data = response.pop().get("content", []).pop()
             for child in tour_data.get("children", []):
+                tour_title = tour_data.get('title', '')
 
                 if child.get("type") == "tourist_attraction":
                     attraction = {
+                        "tour_title": tour_title,
                         "title": child.get("title", ""),
                         "description": child.get("desc", ""),
                         "location": child.get("location", {}),
                         "language": child.get("language", ""),
+                        "languages": child.get("languages", []),
                         "images": [],
                         "attr_uuid": child.get("uuid", ""),
-                        "audio": ""
+                        "audio": []
                     }
+                    if languages is None:
+                        languages = self.LANGUAGES
                     attraction["audio"] = self.get_tourist_attraction_audio(
-                        attraction["attr_uuid"])
+                        attraction["attr_uuid"], languages=languages)
                     images = child.get("images", [])
                     content_provider = child.get("content_provider",
                                                  {}).get("uuid", "")
@@ -388,19 +404,26 @@ class IziTravelApiClient(BaseIziTravelApiClient):
                     tourist_attractions.append(attraction)
         return tourist_attractions
 
-    def get_tourist_attraction_audio(self, attraction_uuid):
+    def get_tourist_attraction_audio(self, attraction_uuid, languages=None):
         url = self._prepare_base_url(self.ATTRACTION_ENDPOINT.format(
             attr_uuid=attraction_uuid))
         params = self._prepare_params(**{"except": "city,country,publisher"})
+        if languages is None:
+            languages = self.LANGUAGES
+        params.update({"languages": languages})
         response = self._make_request(url, **params)
-        audio_url = ""
+        audios = []
         if response:
             tour_data = response.pop()
             content_provider = tour_data.get("content_provider",
                                              "").get("uuid", "")
-            audio = tour_data.get("content", []).pop()["audio"].pop()["uuid"]
-            audio_url = self._prepare_audio_url(content_provider, audio)
-        return audio_url
+            audio = tour_data.get("content", []).pop().get("audio", [])
+            for audio_tour in audio:
+                audio_uuid = audio_tour.get("uuid", "")
+                audio_url = self._prepare_audio_url(content_provider,
+                                                    audio_uuid)
+                audios.append(audio_url)
+        return audios
 
     def get_object_reviews_and_rating(self, obj_uuid):
         """

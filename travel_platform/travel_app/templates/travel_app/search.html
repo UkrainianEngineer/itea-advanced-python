@@ -1,0 +1,50 @@
+{% extends "travel_app/base.html" %}
+{% load static from staticfiles %}
+
+{% block content %}
+  <div class="row">
+    <div class="col-sm-12 col-xs-12 col-md-6">
+      <h2> Museums in {{ city }}</h2>
+
+      {% for museum in museums %}
+        <h3>{{ museum.title }}</h3>
+        <div>
+          {% for image_url in museum.images  %}
+          <img src="{{ image_url }}" alt="{{ museum.title }}">
+            {% endfor %}
+        </div>
+        <div>
+          {% for lang in museum.languages %}
+          <a href="{% url "museum_detail" id_=museum.museum_uuid lang=lang %}">{{ lang }}</a>
+          {% endfor %}
+        </div>
+        <div class="details-link">
+          <a href="{% url "museum_detail" id_=museum.museum_uuid lang=museum.language %}">Details about museum</a>
+        </div>
+      {% endfor %}
+
+    </div>
+
+    <div class="col-sm-12 col-xs-12 col-md-6">
+      <h2> Tours in {{ city }}</h2>
+
+      {% for tour in tours %}
+        <h3>{{ tour.title }}</h3>
+        {% for image in tour.images %}
+          <div>
+            <img src="{{ image }}" alt="{{ tour.title }}">
+          </div>
+          <div>
+          {% for lang in tour.languages %}
+            <a href="{% url "tour_detail" id_=tour.tour_uuid lang=lang %}">{{ lang }}</a>
+          {% endfor %}
+        </div>
+          <div class="details-link">
+            <a href="{% url "tour_detail" id_=tour.tour_uuid lang=tour.language %}">Details about tour</a>
+          </div>
+        {% endfor %}
+      {% endfor %}
+
+    </div>
+  </div>
+{% endblock %}

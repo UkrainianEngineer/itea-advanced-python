@@ -1,13 +1,21 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
-from django.http import Http404
+import requests
+import sys
 
 from django.http import JsonResponse
-
+from django.conf import settings
 from django.shortcuts import render
+from django.views.decorators.cache import cache_page
 
-from .models import Query
+from api.izi_travel.izi_travel_data import *
+from config.conf import CONF_PATH
+
+
+# FIXME RomanPryima: remade sys path in a properly way
+sys.path.append('../../config_parser/')
+sys.path.append('./config')
 
 
 def index(request):
@@ -16,15 +24,58 @@ def index(request):
 
 def coord(request):
     """
-    View added for checking of interaction of map from landing page with 
-    server.
-    :param request: 
-    :return: 
+    This view receives coordinates of location from the GET request, sends it
+    to the Open Maps API. Than returns name of the location received from API
+    to the frontend.
+
+    :param request: data received from frontend, containing longitude and
+      latitude
+    :return: name of location gotten from open maps API.
+    to
     """
 
-    """TODO RomanPryima: make function sending coordinates and returning 
-    to the frontend name of location received from map API"""
+    api_section = 'api.open.map'
 
-    response = request.GET.get('lon') + " " + request.GET.get('lat')
+    api_url = get_setting(CONF_PATH, api_section, 'API_URL')
+    api_key = get_setting(CONF_PATH, api_section, 'API_KEY')
+    coordinate_lon = request.GET.get('lon')
+    coordinate_lat = request.GET.get('lat')
+    location = ','.join([coordinate_lat, coordinate_lon])
+    params = {'key': api_key, 'location': location}
 
+    location_request = requests.get(api_url, params=params)
+    location_data = location_request.json()
+
+    response = location_data['results'][0]['locations'][0]['adminArea5']
+    response = response.encode('utf-8')
     return JsonResponse(response, safe=False)
+
+
+@cache_page(settings.CACHE_MIDDLEWARE_SECONDS)
+def get_city_tourist_info(request):
+    city = request.GET['desired_location']
+    museums = find_museums(city)
+    tours = find_city_tours(city)
+    context = {'museums': museums, 'tours': tours, 'city': city}
+    return render(request, 'travel_app/search.html', context=context)
+
+
+@cache_page(settings.CACHE_MIDDLEWARE_SECONDS)
+def museum_detail(request, id_, lang):
+    detail = find_museum_detail(id_, languages=lang)
+    return render(request, 'travel_app/museum_detail.html',
+                  context={'detail': detail})
+
+
+@cache_page(settings.CACHE_MIDDLEWARE_SECONDS)
+def tour_detail(request, id_, lang):
+    detail = find_tour_attractions(id_, languages=lang)
+    return render(request, 'travel_app/tour_detail.html',
+                  context={'detail': detail})
+
+
+def get_available_cities_from_izi_travel(request):
+    city = request.GET['search']
+    cities = client.search_city_by_name(city)
+    return JsonResponse(cities, safe=False)
+# TODO: try to use different api to get list of cities(google for ex)
