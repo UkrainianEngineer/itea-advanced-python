@@ -34,7 +34,7 @@ def foursquare_find_venue(city, query='museum'):
     return venues_data
 
 
-def foursquare_venue_photos(venue_id, size='width500'):
+def foursquare_venue_photos(venue_id, size='cap500'):
     """
     Picture of requested venue.
     :param venue_id: str id of venue, provided by "foursquare_find_venue"
