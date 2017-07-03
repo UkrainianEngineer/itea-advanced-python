@@ -40,3 +40,13 @@ pip install -r $TRAVEL_PLATFORM_FILES/requirements.txt
 # Install custom packages.
 #python $TRAVEL_PLATFORM_FILES/setup.py install
 
+# Install nginx
+sudo yum -y install nginx
+sudo cp /usr/local/bin/pip /usr/sbin/
+sudo pip install uwsgi
+
+echo "LIST OF ENVS"
+env
+
+# Replace custom variables.
+#sed -i'' -e "s|APPLICATION|my/other/path|g" /etc/nginx/nginx.conf
