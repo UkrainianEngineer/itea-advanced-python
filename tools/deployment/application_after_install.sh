@@ -1,5 +1,6 @@
 # TODO execute `python setup.py install` command.
 
+APPLICATION_NAME="travel_app"
 PROJECT_NAME="travel_platform"
 
 PROJECT_FILES=/usr/local/etc/$PROJECT_NAME
@@ -51,8 +52,13 @@ sudo pip install uwsgi
 # Read for details:
 # http://docs.aws.amazon.com/codedeploy/latest/userguide/reference-appspec-file-structure-hooks.html
 DEPLOYMENT_PATH=`cat /opt/codedeploy-agent/deployment-root/deployment-instructions/"$DEPLOYMENT_GROUP_ID"_last_successful_install`
-PROJECT_PATH="$DEPLOYMENT_PATH/deployment-archive"
+PROJECT_ROOT_PATH="$DEPLOYMENT_PATH/deployment-archive"
+PROJECT_PATH=$PROJECT_ROOT_PATH/$PROJECT_NAME
+APPLICATION_PATH=$PROJECT_PATH/$APPLICATION_NAME
 echo $PROJECT_PATH
+
+# FIXME pivanchy: Replace variables with values via sed.
+# FIXME pivanchy: Finish setup for uwsgi.
 
 # Replace custom variables.
 #sed -i'' -e "s|APPLICATION|my/other/path|g" /etc/nginx/nginx.conf
