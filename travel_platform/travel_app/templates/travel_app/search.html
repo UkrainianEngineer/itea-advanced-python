@@ -33,12 +33,12 @@
             <h3>phone: {{museum.phone}}</h3>
           </div>
         {% endif %}
-        {% if museum.address != None %}
+        {% if museum.address %}
         <div>
           <h3>address: {{museum.address}}</h3>
         </div>
         {% endif %}
-        {% if museum.url != None %}
+        {% if museum.url %}
           <div class="details-link">
             <a href="{{ museum.url }}">Site of the museum</a>
           </div>
@@ -72,17 +72,17 @@
         <div>
           <img src="{{ tour.photo }}" alt="{{ tour.title }}">
         </div>
-        {% if tour.phone != None %}
+        {% if tour.phone %}
           <div>
             <h3>phone: {{tour.phone}}</h3>
           </div>
-        {% if tour.address != None %}
+        {% if tour.address %}
         {% endif %}
           <div>
             <h3>address: {{tour.address}}</h3>
           </div>
         {% endif %}
-        {% if tour.url != None %}
+        {% if tour.url %}
           <div class="details-link">
             <a href="{{ tour.url }}">Site of the tour</a>
           </div>
