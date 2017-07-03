@@ -73,3 +73,10 @@ def tour_detail(request, id_, lang):
     detail = find_tour_attractions(id_, languages=lang)
     return render(request, 'travel_app/tour_detail.html',
                   context={'detail': detail})
+
+
+def get_available_cities_from_izi_travel(request):
+    city = request.GET['search']
+    cities = client.search_city_by_name(city)
+    return JsonResponse(cities, safe=False)
+# TODO: try to use different api to get list of cities(google for ex)
