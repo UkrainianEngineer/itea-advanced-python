@@ -46,7 +46,8 @@ sudo cp /usr/local/bin/pip /usr/sbin/
 sudo pip install uwsgi
 
 echo "LIST OF ENVS"
-PROJECT_PATH=`cat /opt/codedeploy-agent/deployment-root/deployment-instructions/"$DEPLOYMENT_GROUP_ID"_last_successful_install`
+DEPLOYMENT_PATH=`cat /opt/codedeploy-agent/deployment-root/deployment-instructions/"$DEPLOYMENT_GROUP_ID"_last_successful_install`
+PROJECT_PATH="$DEPLOYMENT_PATH/deployment-archive"
 echo $PROJECT_PATH
 
 # Replace custom variables.
