@@ -1,6 +1,8 @@
 # TODO execute `python setup.py install` command.
 
-TRAVEL_PLATFORM_FILES=/usr/local/etc/travel_platform
+PROJECT_NAME="travel_platform"
+
+PROJECT_FILES=/usr/local/etc/$PROJECT_NAME
 
 # Update and upgrade package repositories.
 sudo yum update
@@ -31,21 +33,23 @@ source "${profile_file}"
 echo "Current folder" + $PWD
 
 # Prepare virtual environment.
-mkvirtualenv travel_platform
-workon travel_platform
+mkvirtualenv $PROJECT_NAME
+workon $PROJECT_NAME
 
 # Install packages.
-pip install -r $TRAVEL_PLATFORM_FILES/requirements.txt
+pip install -r $PROJECT_FILES/requirements.txt
 
 # Install custom packages.
-#python $TRAVEL_PLATFORM_FILES/setup.py install
+#python $PROJECT_FILES/setup.py install
 
 # Install nginx
 sudo yum -y install nginx
 sudo cp /usr/local/bin/pip /usr/sbin/
 sudo pip install uwsgi
 
-echo "LIST OF ENVS"
+# Hack for extracting project path for last build.
+# Read for details:
+# http://docs.aws.amazon.com/codedeploy/latest/userguide/reference-appspec-file-structure-hooks.html
 DEPLOYMENT_PATH=`cat /opt/codedeploy-agent/deployment-root/deployment-instructions/"$DEPLOYMENT_GROUP_ID"_last_successful_install`
 PROJECT_PATH="$DEPLOYMENT_PATH/deployment-archive"
 echo $PROJECT_PATH
