@@ -39,7 +39,8 @@ def foursquare_venue_photos(venue_id, size='cap500'):
     Picture of requested venue.
     :param venue_id: str id of venue, provided by "foursquare_find_venue"
      function.
-    :param size: str size of picture. By default - "cap500" - 500 pixels on the larger dimension (width or height).
+    :param size: str size of picture. By default - "cap500" - 500 pixels on the
+                 larger dimension (width or height).
     :return: str url of photos of venue.
     """
     venue_data = foursquare_client.venues.photos(venue_id, params={})

@@ -15,7 +15,6 @@ from config.conf_open_maps import CONF_PATH_OM
 from api.foursquare.foursquare_data import *
 
 # FIXME RomanPryima: remade sys path in a properly way
-sys.path.append('../../config_parser/')
 sys.path.append('./config')
 
 
