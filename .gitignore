@@ -5,3 +5,4 @@ cover/
 /build/
 /config_parser.egg-info/
 /dist/
+.idea/

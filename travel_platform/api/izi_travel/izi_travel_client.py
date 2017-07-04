@@ -1,4 +1,3 @@
-from multiprocessing.pool import ThreadPool
 import requests
 
 from conf import CONF_PATH
@@ -426,17 +425,16 @@ class IziTravelApiClient(BaseIziTravelApiClient):
         if languages is not None:
             params.update(languages=languages)
         response = self._make_request(url, **params)
-        attr_audio = []
+        attractions_audio = {}
         for attr in response:
             content_provider = attr.get("content_provider",
                                         "").get("uuid", "")
             attr_uuid = attr.get("uuid", "")
             audios = [audio.get("uuid", "") for audio in
                       attr.get("content", []).pop().get("audio", [])]
-            audio_urls = [self._prepare_audio_url(content_provider, audio)
-                          for audio in audios]
-            attr_audio.append((attr_uuid, audio_urls))
-        return dict(attr_audio)
+            attractions_audio[attr_uuid] = [self._prepare_audio_url(
+                content_provider, audio) for audio in audios]
+        return attractions_audio
 
     def get_object_reviews_and_rating(self, obj_uuid):
         """
