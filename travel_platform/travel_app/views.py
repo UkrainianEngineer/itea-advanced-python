@@ -4,14 +4,15 @@ from __future__ import unicode_literals
 import requests
 import sys
 
-from django.http import JsonResponse
+from config_parser.config_reader import get_setting
+from django.http import JsonResponse, HttpResponse
 from django.conf import settings
 from django.shortcuts import render
 from django.views.decorators.cache import cache_page
 
 from api.izi_travel.izi_travel_data import *
-from config.conf import CONF_PATH
-
+from config.conf_open_maps import CONF_PATH_OM
+from api.foursquare.foursquare_data import *
 
 # FIXME RomanPryima: remade sys path in a properly way
 sys.path.append('../../config_parser/')
@@ -35,9 +36,9 @@ def coord(request):
     """
 
     api_section = 'api.open.map'
+    api_url = get_setting(CONF_PATH_OM, api_section, 'API_URL')
+    api_key = get_setting(CONF_PATH_OM, api_section, 'API_KEY')
 
-    api_url = get_setting(CONF_PATH, api_section, 'API_URL')
-    api_key = get_setting(CONF_PATH, api_section, 'API_KEY')
     coordinate_lon = request.GET.get('lon')
     coordinate_lat = request.GET.get('lat')
     location = ','.join([coordinate_lat, coordinate_lon])
@@ -53,11 +54,21 @@ def coord(request):
 
 @cache_page(settings.CACHE_MIDDLEWARE_SECONDS)
 def get_city_tourist_info(request):
+    """
+    Returns page containing data of museums and tours in desired location.
+    :param request: GET request from frontend.
+    :return: page containing data of museums and tours in desired location
+    """
     city = request.GET['desired_location']
     data = get_museums_with_tours(city)
     museums = data["museums"]
     tours = data["tours"]
     context = {'museums': museums, 'tours': tours, 'city': city}
+    foursquare_museums = foursquare_find_venue(city, 'museum')
+    foursquare_tours = foursquare_find_venue(city, 'tour')
+    context.update(
+        {'foursquare_museums': foursquare_museums,
+         'foursquare_tours': foursquare_tours})
     return render(request, 'travel_app/search.html', context=context)
 
 

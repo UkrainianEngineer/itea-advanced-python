@@ -23,6 +23,28 @@
         </div>
       {% endfor %}
 
+      {% for museum in foursquare_museums %}
+        <h3>{{ museum.name }}</h3>
+        <div>
+          <img src="{{ museum.photo }}" alt="{{ museum.title }}">
+        </div>
+        {% if museum.phone != None %}
+          <div>
+            <h3>phone: {{museum.phone}}</h3>
+          </div>
+        {% endif %}
+        {% if museum.address %}
+        <div>
+          <h3>address: {{museum.address}}</h3>
+        </div>
+        {% endif %}
+        {% if museum.url %}
+          <div class="details-link">
+            <a href="{{ museum.url }}">Site of the museum</a>
+          </div>
+        {% endif %}
+      {% endfor %}
+
     </div>
 
     <div class="col-sm-12 col-xs-12 col-md-6">
@@ -43,6 +65,28 @@
             <a href="{% url "tour_detail" id_=tour.tour_uuid lang=tour.language %}">Details about tour</a>
           </div>
         {% endfor %}
+      {% endfor %}
+
+      {% for tour in foursquare_tours %}
+        <h3>{{ tour.name }}</h3>
+        <div>
+          <img src="{{ tour.photo }}" alt="{{ tour.title }}">
+        </div>
+        {% if tour.phone %}
+          <div>
+            <h3>phone: {{tour.phone}}</h3>
+          </div>
+        {% endif %}
+        {% if tour.address %}
+          <div>
+            <h3>address: {{tour.address}}</h3>
+          </div>
+        {% endif %}
+        {% if tour.url %}
+          <div class="details-link">
+            <a href="{{ tour.url }}">Site of the tour</a>
+          </div>
+        {% endif %}
       {% endfor %}
 
     </div>
