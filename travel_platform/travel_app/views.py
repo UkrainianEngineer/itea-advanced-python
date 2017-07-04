@@ -60,8 +60,9 @@ def get_city_tourist_info(request):
     :return: page containing data of museums and tours in desired location
     """
     city = request.GET['desired_location']
-    museums = find_museums(city)
-    tours = find_city_tours(city)
+    data = get_museums_with_tours(city)
+    museums = data["museums"]
+    tours = data["tours"]
     context = {'museums': museums, 'tours': tours, 'city': city}
     foursquare_museums = foursquare_find_venue(city, 'museum')
     foursquare_tours = foursquare_find_venue(city, 'tour')
