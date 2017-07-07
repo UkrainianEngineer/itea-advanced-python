@@ -90,3 +90,7 @@ def get_available_cities_from_izi_travel(request):
     cities = client.search_city_by_name(city)
     return JsonResponse(cities, safe=False)
 # TODO: try to use different api to get list of cities(google for ex)
+
+
+def flights(request):
+    return render(request, 'travel_app/flights.html')
