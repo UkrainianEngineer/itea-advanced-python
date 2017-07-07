@@ -1,7 +1,6 @@
 appdirs==1.4.3
 BeautifulSoup==3.2.1
 beautifulsoup4==4.6.0
-config-parser==1.0.0
 coverage==4.4
 Django==1.11.1
 docopt==0.6.2
