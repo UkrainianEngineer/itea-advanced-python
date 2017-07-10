@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 {% extends "travel_app/base.html" %}
 {% load static from staticfiles %}
 {% block content %}
@@ -7,4 +8,33 @@
     </div>
   </div>
 </header>
+
+<body link="blue" vlink="red" alink="green">
+  <hr noshade width="100%" color="black" size="5">
+  <h1 align="center">Flights</h1>
+
+  <h4>
+      From
+      <input id="initial-location" type="text" placeholder="enter your location">
+      to
+      <input name="desired_location" type="text" placeholder="enter desired location">
+  </h4>
+  <h4>
+      Depart date:
+      <input id="depart_date" type="text" placeholder="DD/MM/YYYY">
+      Return date:
+      <input id="return_date" type="text" placeholder="DD/MM/YYYY">
+  </h4>
+
+
+
+  <h3 align="center">
+    <input type="button" align="center" value="Search flights" />
+  </h3>
+
+  <p>
+    <button onclick="history.back();">Back to home page</button>
+  </p>
+
+</body>
 {% endblock %}

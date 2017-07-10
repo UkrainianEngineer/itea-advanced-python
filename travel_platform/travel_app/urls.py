@@ -12,5 +12,5 @@ urlpatterns = [
         views.tour_detail, name='tour_detail'),
     url(r'^cities/$', views.get_available_cities_from_izi_travel,
         name='cities'),
-    url(r'^flights/$', views.flights, name='flights')
+    url(r'^flights', views.flights, name='flights')
 ]
