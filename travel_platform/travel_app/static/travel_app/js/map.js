@@ -2,7 +2,10 @@
   $.getJSON("http://ip-api.com/json/?callback=?", function (data){
   	var city = data["city"];
   	$("#initial-location").val(city)
-   }); 
+   });
+   $(function() {
+    $( document ).tooltip(
+   });
  });
 
 
