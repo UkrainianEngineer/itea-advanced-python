@@ -28,10 +28,9 @@
       </div>
     </div>
     {% for venue in foursquare_venues %}
-
       <div class="row foursquare-venue-row">
-        <div class="col-sm-3  col-xs-12 col-md-5">
-          <div class="venueDesc">
+        <div class="col-sm-3 col-xs-12 col-md-5">
+          <div class="venue-desc">
             <h3>{{ venue.name }}</h3>
             {% if venue.url %}
               <p>
@@ -54,16 +53,16 @@
         <div class="col-sm-9 col-xs-12 col-md-7">
           <div>
             {% if venue.photo %}
-              <div class="foursquare_img">
-                <img src="{{ venue.photo }}" alt="{{ venue.name }}" class="img-responsive img-rounded item-img">
-              </div>
+            <div>
+              <img src="{{ venue.photo }}" alt="{{ venue.name }}" class="img-responsive img-rounded item-img">
+            </div>
             {% endif %}
           </div>
         </div>
       </div>
 
     {% empty %}
-      <p> Nothing found in this city at all!</p>
+      <p> Nothing found in this city at all!
     {% endfor %}
   </div>
 {% endblock %}

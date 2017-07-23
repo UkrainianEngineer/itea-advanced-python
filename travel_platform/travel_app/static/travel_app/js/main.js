@@ -14,12 +14,12 @@ $(document).ready(function () {
     $("#initial-location").change(function () {
         var city = $(this).val();
         var links = {
-            "#museums_link": 'museums',
-            "#attractions_link": 'attractions',
-            "#entertainment_link": 'entertainment',
-            "#hotels_link": 'hotels',
-            "#restaurants_link": 'hotels',
-            "#transport_link": 'transport'
+            "#museums-link": 'museums',
+            "#attractions-link": 'attractions',
+            "#entertainment-link": 'entertainment',
+            "#hotels-link": 'hotels',
+            "#restaurants-link": 'hotels',
+            "#transport-link": 'transport'
         };
         if (city) {
             $(".common-img-link").css("opacity", "");

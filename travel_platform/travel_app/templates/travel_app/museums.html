@@ -27,18 +27,18 @@
   </div>
 
   <div class="row">
-    <div class="col-sm-3  col-xs-12 col-md-6 col-md-offset-3">
+    <div class="col-sm-3 col-xs-12 col-md-6 col-md-offset-3">
       {% for museum in museums %}
-        <h3>{{ museum.title }}</h3>
+      <h3>{{ museum.title }}</h3>
+      <div>
+        {% for image_url in museum.images %}
+        <img src="{{ image_url }}" alt="{{ museum.title }}">
+        {% endfor %}
+      </div>
         <div>
-          {% for image_url in museum.images %}
-            <img src="{{ image_url }}" alt="{{ museum.title }}">
-          {% endfor %}
-        </div>
-        <div>
-          {% for lang in museum.languages %}
-            <a href="{% url "museum_detail" id_=museum.museum_uuid lang=lang %}">{{ lang }}</a>
-          {% endfor %}
+         {% for lang in museum.languages %}
+          <a href="{% url "museum_detail" id_=museum.museum_uuid lang=lang %}">{{ lang }}</a>
+         {% endfor %}
         </div>
         <div class="details-link">
           <a href="{% url "museum_detail" id_=museum.museum_uuid lang=museum.language %}">Details about museum</a>
@@ -46,7 +46,6 @@
       {% empty %}
         <p> No museums available!
       {% endfor %}
-      </p>
     </div>
   </div>
   </div>

@@ -26,7 +26,7 @@
 
       {% for museum in foursquare_museums %}
         <h3>{{ museum.name }}</h3>
-        <div class="foursquare_img">
+        <div>
           <img src="{{ museum.photo }}" alt="{{ museum.title }}" class="img-responsive item-img">
         </div>
         {% if museum.phone != None %}

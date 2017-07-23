@@ -97,8 +97,9 @@ def museums_data_for_current_city(request, venue_type):
     museums = find_museums(city)
     return render(request, 'travel_app/museums.html', {
         "museums": museums,
-        "url_part": "/travel_app/{venue_type}/search?search-city=".format(
-                                                           venue_type=venue_type),
+        "url_part":
+            "/travel_app/{venue_type}/search?search-city=".format(
+                venue_type=venue_type),
         "city": city
     })
 
