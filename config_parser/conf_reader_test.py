@@ -2,7 +2,6 @@ import unittest
 from config_reader import get_setting
 
 
-
 class TestExample(unittest.TestCase):
 
     def test_get_item(self):

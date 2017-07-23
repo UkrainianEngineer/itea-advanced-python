@@ -4,7 +4,6 @@ from __future__ import unicode_literals
 import requests
 import sys
 
-from config_parser.config_reader import get_setting
 from django.http import JsonResponse, HttpResponse
 from django.conf import settings
 from django.shortcuts import render
