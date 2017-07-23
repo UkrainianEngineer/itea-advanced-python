@@ -13,6 +13,7 @@ $(document).ready(function() {
         }
     };
     $("#desired-location").easyAutocomplete(options);
+    $("#search-city").easyAutocomplete(options);
 });
 
 
