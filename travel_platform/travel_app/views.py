@@ -4,11 +4,11 @@ from __future__ import unicode_literals
 import requests
 import sys
 
-from django.http import JsonResponse, HttpResponse
+from django.http import JsonResponse
 from django.conf import settings
 from django.shortcuts import render
 from django.views.decorators.cache import cache_page
-from foursquare import FailedGeocode
+import logging
 
 from api.izi_travel.izi_travel_data import *
 from config.conf_open_maps import CONF_PATH_OM
@@ -16,6 +16,8 @@ from api.foursquare.foursquare_data import *
 
 # FIXME RomanPryima: remade sys path in a properly way
 sys.path.append('./config')
+
+logger = logging.getLogger(__name__)
 
 
 def index(request):
@@ -118,7 +120,8 @@ def foursquare_venue_for_current_city(request, venue_type):
     city = request.GET['search-city']
     try:
         foursquare_venues = foursquare_explore_venues(city, query=venue_type)
-    except FailedGeocode:
+    except Exception as e:
+        logger.error("Foursquare client error: {}".format(e), exc_info=True)
         foursquare_venues = []
     return render(request, 'travel_app/foursquare_venues.html', {
         "url_part": "/travel_app/{venue_type}/search?search-city=".format(

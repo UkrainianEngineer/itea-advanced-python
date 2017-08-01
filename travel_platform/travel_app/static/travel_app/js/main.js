@@ -29,16 +29,15 @@ $(document).ready(function () {
             $(".choose > a").addClass("inactive-link");
             $(".common-img-link").css("opacity", 0.4);
         }
-
-        Object.keys(links).forEach(function (objId) {
+        $.each(links, function (objId, link) {
             if (city) {
-                $(objId).attr("href", links[objId] + '/search?' + $.param({"search-city": city}))
+                $(objId).attr("href", link + '/search?' + $.param({"search-city": city}))
             }
             else {
                 $(objId).attr("href", 'javascript: {};')
-
             }
-        });
+        })
+
     })
 
 });

@@ -1,14 +1,14 @@
 {% extends "travel_app/base.html" %}
 {% load static from staticfiles %}
 {% block javascript %}
-  <script src="{% static 'travel_app/js/attractions.js' %}"></script>
+  <script src="{% static 'travel_app/js/common.js' %}"></script>
 {% endblock %}
 
 {% block content %}
   <div class="container">
     <div class="row">
       <div class="col-sm-10 col-xs-10 col-md-8 col-md-offset-1">
-        <form id="attractions-city" method="GET">
+        <form id="search-city-form" method="GET">
           <div class="input-group">
             <input type="text" class="form-control" placeholder="{{ city }}" name="search" id="search-city">
             <div class="input-group-btn">
