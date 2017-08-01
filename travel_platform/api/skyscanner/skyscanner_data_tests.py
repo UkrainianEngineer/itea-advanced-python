@@ -1,12 +1,19 @@
 import unittest
 from skyscanner_data import *
+import datetime
+
+
+outbounddate = (datetime.date.today() +
+                datetime.timedelta(7)).strftime('%Y-%m-%d')
+inbounddate = (datetime.date.today() +
+               datetime.timedelta(30)).strftime('%Y-%m-%d')
 
 
 class SkyscannerDataTest(unittest.TestCase):
     def setUp(self):
         self.data = {"market": "UK", "currency": "GBP", "locale": "en-GB",
                      "originplace": "SIN-sky", "destinationplace": "KUL-sky",
-                     "outbounddate": "2017-07-15", "inbounddate": "2017-07-16"}
+                     "outbounddate": outbounddate, "inbounddate": inbounddate}
 
     def test_cheapest_quotes_if_keys_in(self):
         result = cheapest_quotes(self.data)
