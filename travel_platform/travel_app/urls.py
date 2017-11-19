@@ -11,5 +11,11 @@ urlpatterns = [
     url(r'^tour_detail/(?P<id_>[^/]+)/(?P<lang>[a-zA-z]+)/$',
         views.tour_detail, name='tour_detail'),
     url(r'^cities/$', views.get_available_cities_from_izi_travel,
-        name='cities')
+        name='cities'),
+    url(r'^(?P<venue_type>museums)/search',
+        views.museums_data_for_current_city, name='museums'),
+    url(r'^(?P<venue_type>attractions)/search',
+        views.attractions_data_for_current_city, name='attractions'),
+    url(r'^(?P<venue_type>hotels|restaurants|entertainment|transport)/search',
+        views.foursquare_venue_for_current_city, name='foursquare_venue'),
 ]

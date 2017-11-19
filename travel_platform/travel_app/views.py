@@ -4,10 +4,11 @@ from __future__ import unicode_literals
 import requests
 import sys
 
-from django.http import JsonResponse, HttpResponse
+from django.http import JsonResponse
 from django.conf import settings
 from django.shortcuts import render
 from django.views.decorators.cache import cache_page
+import logging
 
 from api.izi_travel.izi_travel_data import *
 from config.conf_open_maps import CONF_PATH_OM
@@ -15,6 +16,8 @@ from api.foursquare.foursquare_data import *
 
 # FIXME RomanPryima: remade sys path in a properly way
 sys.path.append('./config')
+
+logger = logging.getLogger(__name__)
 
 
 def index(request):
@@ -62,8 +65,8 @@ def get_city_tourist_info(request):
     museums = data["museums"]
     tours = data["tours"]
     context = {'museums': museums, 'tours': tours, 'city': city}
-    foursquare_museums = foursquare_find_venue(city, 'museum')
-    foursquare_tours = foursquare_find_venue(city, 'tour')
+    foursquare_museums = foursquare_explore_venues(city, "museum")
+    foursquare_tours = foursquare_explore_venues(city, "tour")
     context.update(
         {'foursquare_museums': foursquare_museums,
          'foursquare_tours': foursquare_tours})
@@ -89,3 +92,40 @@ def get_available_cities_from_izi_travel(request):
     cities = client.search_city_by_name(city)
     return JsonResponse(cities, safe=False)
 # TODO: try to use different api to get list of cities(google for ex)
+
+
+def museums_data_for_current_city(request, venue_type):
+    city = request.GET['search-city']
+    museums = find_museums(city)
+    return render(request, 'travel_app/museums.html', {
+        "museums": museums,
+        "url_part":
+            "/travel_app/{venue_type}/search?search-city=".format(
+                venue_type=venue_type),
+        "city": city
+    })
+
+
+def attractions_data_for_current_city(request, venue_type):
+    city = request.GET['search-city']
+    tours = find_city_tours(city)
+    return render(request, 'travel_app/attractions.html', {
+        "url_part": "/travel_app/{venue_type}/search?search-city=".format(
+            venue_type=venue_type),
+        "tours": tours, "city": city
+    })
+
+
+def foursquare_venue_for_current_city(request, venue_type):
+    city = request.GET['search-city']
+    try:
+        foursquare_venues = foursquare_explore_venues(city, query=venue_type)
+    except Exception as e:
+        logger.error("Foursquare client error: {}".format(e), exc_info=True)
+        foursquare_venues = []
+    return render(request, 'travel_app/foursquare_venues.html', {
+        "url_part": "/travel_app/{venue_type}/search?search-city=".format(
+            venue_type=venue_type),
+        "foursquare_venues": foursquare_venues, "city": city,
+        "venues": venue_type.capitalize()
+    })
